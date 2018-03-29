@@ -49,7 +49,7 @@ Dependent Variables:
 
 An example visualization including these variables is below.
 
-```{r partners-visualization}
+```{r partners-visualization, echo=FALSE}
 data_clean <- data %>%
   filter(!is.na(partners) & partners != "1.00E-04") %>%
   mutate(partners = as.numeric(partners))
@@ -76,7 +76,7 @@ Independent Variables:
 
 An example visualization incorporating these variables is below.
 
-```{r independent-vizualisation}
+```{r independent-vizualisation, echo=FALSE}
 data_clean %>%
   filter(!is.na(greek) & !is.na(gender) & partners <= 68) %>% #removing NAs and bogus outliers
   group_by(greek, gender) %>%

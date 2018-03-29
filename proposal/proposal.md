@@ -36,28 +36,7 @@ Dependent Variables:
 
 An example visualization including these variables is below.
 
-``` r
-data_clean <- data %>%
-  filter(!is.na(partners) & partners != "1.00E-04") %>%
-  mutate(partners = as.numeric(partners))
-
-data_clean %>%
-  filter(partners < 100) %>%
-  ggplot(aes(x = partners)) +
-  geom_histogram(binwidth = 5) + 
-  labs(title = "Total Sexual Partners", subtitle = "Sampled college students, 2018")
-```
-
 ![](proposal_files/figure-markdown_github/partners-visualization-1.png)
-
-``` r
-data_clean %>%
-  filter(partners < 100) %>%
-  summarize(mean_partners = mean(partners),
-            median_partners = median(partners),
-            min_partners = min(partners),
-            max_partners = max(partners))
-```
 
     ## # A tibble: 1 x 4
     ##   mean_partners median_partners min_partners max_partners
@@ -72,13 +51,6 @@ Independent Variables:
 
 An example visualization incorporating these variables is below.
 
-``` r
-data_clean %>%
-  filter(!is.na(greek) & !is.na(gender) & partners <= 68) %>% #removing NAs and bogus outliers
-  group_by(greek, gender) %>%
-  summarize(median = median(partners))
-```
-
     ## # A tibble: 5 x 3
     ## # Groups:   greek [?]
     ##   greek gender median
@@ -88,25 +60,6 @@ data_clean %>%
     ## 3 No    Other    0   
     ## 4 Yes   Female   3.00
     ## 5 Yes   Male     6.00
-
-``` r
-data_clean %>% 
-  filter(!is.na(major) & college == "Duke University" & partners <= 68) %>%
-  mutate(school =
-  case_when(
-    major %in% c("BME", "ECE", "ME", 
-                 "Biomedical Engineering", "ECE/CS", "Environmental Engineering", 
-                 "Engineering", "Mechanical Engineering", 
-                 "BME ece", "Biomedical engineering", "CEE", "Engineering Management", 
-                 "ECE, CS", "Electrical and Computer Engineering", 
-                 "Civil Engineering", "BME/ECE", "biomedical engineering", 
-                 "Mechanical engineering", "ECE/BME", "Biomedical Engineer", "Ece/cs") ~ "Pratt",
-    TRUE ~ "Trinity")
-  ) %>% 
-  ggplot(aes(x = school, y = partners)) +
-  geom_boxplot() +
-  labs(title = "Sexual Partners by School", subtitle = "Duke University, 2018")
-```
 
 ![](proposal_files/figure-markdown_github/independent-vizualisation-1.png)
 
