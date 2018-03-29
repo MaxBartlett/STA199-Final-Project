@@ -12,6 +12,8 @@ library(broom)
 library(infer)
 
 data <- read_csv("../data/SexSurvey.csv")
+data <- data %>%
+  filter(row_number() != 1)
 
 ```
 
@@ -47,11 +49,58 @@ Dependent Variables:
 
 These two variables are the ones that we expect to be outcomes of other variables in our dataset. We're attempting to see whether and how our demographic data (such as religion, age, political beliefs, etc.) is related to the sexual practices of college students, so it makes sense that our dependent variables are the ones that relate to sexual practices.
 
+```{r partners-visualization}
+data <- data %>%
+  filter(!is.na(partners) & partners != "1.00E-04") %>%
+  mutate(partners = as.numeric(partners))
+
+data %>%
+  filter(partners < 100) %>%
+  ggplot(aes(x = partners)) +
+  geom_histogram(binwidth = 5) + 
+  labs(title = "Total Sexual Partners", subtitle = "Sampled college students, 2018")
+
+data %>%
+  filter(partners < 100) %>%
+  summarize(mean_partners = mean(partners),
+            median_partners = median(partners),
+            min_partners = min(partners),
+            max_partners = max(partners))
+```
+
+After removing non-numeric answers and filtering for data within a reasonable range, the data seem to be heavily skewed right. There are some outliers, the largest being 69 (it's safe to say this answer can be thrown out along with other joke responses such as "6969", "420", etc.). But in general, the partner data seem to be within our expectations.
+
 Independent Variables: 
 
 *student*, *college*, *year*, *age*, *gender*, *major*, *athlete*, *greek*, *politics*, *religious*, *religion*, *relationship*
 
-These are the demographic variables that we hope to be relate to number of sexual partners in total and during college. 
+These are the demographic variables that we hope to be relate to number of sexual partners in total and during college.
+
+For example:
+
+```{r independent-vizualisation}
+data %>%
+  filter(!is.na(greek) & !is.na(gender) & partners <= 68) %>% #removing NAs and bogus outliers
+  group_by(greek, gender) %>%
+  summarize(median = median(partners))
+
+data %>% 
+  filter(!is.na(major) & college == "Duke University" & partners <= 68) %>%
+  mutate(school =
+  case_when(
+    major %in% c("BME", "ECE", "ME", 
+                 "Biomedical Engineering", "ECE/CS", "Environmental Engineering", 
+                 "Engineering", "Mechanical Engineering", 
+                 "BME ece", "Biomedical engineering", "CEE", "Engineering Management", 
+                 "ECE, CS", "Electrical and Computer Engineering", 
+                 "Civil Engineering", "BME/ECE", "biomedical engineering", 
+                 "Mechanical engineering", "ECE/BME", "Biomedical Engineer", "Ece/cs") ~ "Pratt",
+    TRUE ~ "Trinity")
+  ) %>% 
+  ggplot(aes(x = school, y = partners)) +
+  geom_boxplot() +
+  labs(title = "Sexual Partners by School", subtitle = "Duke University, 2018")
+```
 
 #### Comparison Groups
 
@@ -71,7 +120,6 @@ Some methods that we believe will be useful are the following.
 #### Desired Results
 
 At this point, we're simply addressing the question of whether there exists a relationship between some of these variables (any number of them) and the number of sexual partners a student has had in their life. To support the existence of such a relationship, we would expect to see a linear model examining this relationship to have a high R^2 value, a hypothesis test to report a statistically significant p-value, or a set of confidence intervals to show meaningful differences. 
-
 
 ## Section 3. Data
 

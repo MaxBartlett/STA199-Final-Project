@@ -36,11 +36,81 @@ Dependent Variables:
 
 These two variables are the ones that we expect to be outcomes of other variables in our dataset. We're attempting to see whether and how our demographic data (such as religion, age, political beliefs, etc.) is related to the sexual practices of college students, so it makes sense that our dependent variables are the ones that relate to sexual practices.
 
+``` r
+data <- data %>%
+  filter(!is.na(partners) & partners != "1.00E-04") %>%
+  mutate(partners = as.numeric(partners))
+
+data %>%
+  filter(partners < 100) %>%
+  ggplot(aes(x = partners)) +
+  geom_histogram(binwidth = 5) + 
+  labs(title = "Total Sexual Partners", subtitle = "Sampled college students, 2018")
+```
+
+![](proposal_files/figure-markdown_github/partners-visualization-1.png)
+
+``` r
+data %>%
+  filter(partners < 100) %>%
+  summarize(mean_partners = mean(partners),
+            median_partners = median(partners),
+            min_partners = min(partners),
+            max_partners = max(partners))
+```
+
+    ## # A tibble: 1 x 4
+    ##   mean_partners median_partners min_partners max_partners
+    ##           <dbl>           <dbl>        <dbl>        <dbl>
+    ## 1          4.78              2.           0.          69.
+
+After removing non-numeric answers and filtering for data within a reasonable range, the data seem to be heavily skewed right. There are some outliers, the largest being 69 (it's safe to say this answer can be thrown out along with other joke responses such as "6969", "420", etc.). But in general, the partner data seem to be within our expectations.
+
 Independent Variables:
 
 *student*, *college*, *year*, *age*, *gender*, *major*, *athlete*, *greek*, *politics*, *religious*, *religion*, *relationship*
 
 These are the demographic variables that we hope to be relate to number of sexual partners in total and during college.
+
+For example:
+
+``` r
+data %>%
+  filter(!is.na(greek) & !is.na(gender) & partners <= 68) %>% #removing NAs and bogus outliers
+  group_by(greek, gender) %>%
+  summarize(median = median(partners))
+```
+
+    ## # A tibble: 5 x 3
+    ## # Groups:   greek [?]
+    ##   greek gender median
+    ##   <chr> <chr>   <dbl>
+    ## 1 No    Female     2.
+    ## 2 No    Male       2.
+    ## 3 No    Other      0.
+    ## 4 Yes   Female     3.
+    ## 5 Yes   Male       6.
+
+``` r
+data %>% 
+  filter(!is.na(major) & college == "Duke University" & partners <= 68) %>%
+  mutate(school =
+  case_when(
+    major %in% c("BME", "ECE", "ME", 
+                 "Biomedical Engineering", "ECE/CS", "Environmental Engineering", 
+                 "Engineering", "Mechanical Engineering", 
+                 "BME ece", "Biomedical engineering", "CEE", "Engineering Management", 
+                 "ECE, CS", "Electrical and Computer Engineering", 
+                 "Civil Engineering", "BME/ECE", "biomedical engineering", 
+                 "Mechanical engineering", "ECE/BME", "Biomedical Engineer", "Ece/cs") ~ "Pratt",
+    TRUE ~ "Trinity")
+  ) %>% 
+  ggplot(aes(x = school, y = partners)) +
+  geom_boxplot() +
+  labs(title = "Sexual Partners by School", subtitle = "Duke University, 2018")
+```
+
+![](proposal_files/figure-markdown_github/independent-vizualisation-1.png)
 
 #### Comparison Groups
 
@@ -67,23 +137,23 @@ Section 3. Data
 glimpse(data)
 ```
 
-    ## Observations: 395
+    ## Observations: 355
     ## Variables: 18
-    ## $ ip_address         <chr> "IP Address", "174.193.140.119", "152.3.43....
-    ## $ duration           <chr> "Duration (in seconds)", "33", "66", "56", ...
-    ## $ location_latitude  <chr> "Location Latitude", "35.01210022", "35.995...
-    ## $ location_longitude <chr> "Location Longitude", "-80.88210297", "-78....
-    ## $ student            <chr> "Are you currently a college student?", "Ye...
-    ## $ college            <chr> "Which college do you attend? - Selected Ch...
-    ## $ year               <chr> "In which year of study are you?", "Sophomo...
-    ## $ age                <chr> "What is your age? (Please enter numericall...
-    ## $ gender             <chr> "What is your gender?", "Male", "Female", "...
-    ## $ major              <chr> "What is your current or planned major?", "...
-    ## $ athlete            <chr> "Are you a student-athlete?", "No", "No", "...
-    ## $ greek              <chr> "Are you involved in fraternity or sorority...
-    ## $ politics           <chr> "How would you describe your political view...
-    ## $ religious          <chr> "Would you consider yourself to be religiou...
-    ## $ religion           <chr> "What is your religion? - Selected Choice",...
-    ## $ partners           <chr> "In your life, how many total sexual partne...
-    ## $ partners_college   <chr> "Of those, how many have you had since comi...
-    ## $ relationship       <chr> "Are you currently in a committed romantic ...
+    ## $ ip_address         <chr> "174.193.140.119", "152.3.43.21", "152.3.43...
+    ## $ duration           <chr> "33", "66", "56", "39", "53", "40", "39", "...
+    ## $ location_latitude  <chr> "35.01210022", "35.9954071", "35.9954071", ...
+    ## $ location_longitude <chr> "-80.88210297", "-78.90190125", "-78.901901...
+    ## $ student            <chr> "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "...
+    ## $ college            <chr> "Duke University", "Duke University", "Duke...
+    ## $ year               <chr> "Sophomore", "Sophomore", "Sophomore", "Sop...
+    ## $ age                <chr> "19", "19", "19", "19", "17", "20", "21", "...
+    ## $ gender             <chr> "Male", "Female", "Male", "Female", "Female...
+    ## $ major              <chr> "Computer Science", "Neuroscience", "Comput...
+    ## $ athlete            <chr> "No", "No", "No", "No", "No", "No", "Yes", ...
+    ## $ greek              <chr> NA, "No", "No", "No", "No", "Yes", "No", "N...
+    ## $ politics           <chr> "Somewhat Liberal", "Somewhat Liberal", "So...
+    ## $ religious          <chr> "No", "Yes", "No", "No", "Yes", "Yes", "No"...
+    ## $ religion           <chr> NA, "Hinduism", NA, NA, "Christianity", "Ch...
+    ## $ partners           <dbl> 5, 0, 5, 0, 0, 3, 8, 2, 5, 0, 9, 0, 4, 1, 1...
+    ## $ partners_college   <chr> NA, "0", "2", "0", "0", "3", "2", "2", "4",...
+    ## $ relationship       <chr> "Yes", "Yes", "Yes", "No", "No", "Yes", "Ye...
