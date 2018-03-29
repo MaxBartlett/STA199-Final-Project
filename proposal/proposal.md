@@ -28,5 +28,62 @@ To get answers to our survey, we asked our friends to fill it out and also poste
 Section 2. Data analysis plan
 -----------------------------
 
+#### Variables
+
+Dependent Variables:
+
+*partners*, *partners\_college*
+
+These two variables are the ones that we expect to be outcomes of other variables in our dataset. We're attempting to see whether and how our demographic data (such as religion, age, political beliefs, etc.) is related to the sexual practices of college students, so it makes sense that our dependent variables are the ones that relate to sexual practices.
+
+Independent Variables:
+
+*student*, *college*, *year*, *age*, *gender*, *major*, *athlete*, *greek*, *politics*, *religious*, *religion*, *relationship*
+
+These are the demographic variables that we hope to be relate to number of sexual partners in total and during college.
+
+#### Comparison Groups
+
+Some examples of groups we might use for comparisons could be different major categories, or even subsets of those such as those of certain genders in different major categories. However, we plan on performing these comparisons between as many of these different groups as possible, so we don't have any specific comparison groups in mind.
+
+#### Exploratory Analysis
+
+#### Statistical Methods
+
+Some methods that we believe will be useful are the following.
+
+-   Bootstrapping: Using bootstrapping, we'll be able to create confidence intervals for the population mean number of sexual partners for a variety of different groups based on the independent variables.
+-   Hypothesis Tests: These will allow us to test questions such as "Is there a statistically significant difference between the median number of sexual partners in biomedical engineers vs. computer scientists?" or any number of questions comparing the response variables among dependent variable groupings.
+-   Linear modeling: By creating a linear model, we can see which collection of these variables creates the best prediction of number of sexual partners.
+
+#### Desired Results
+
+At this point, we're simply addressing the question of whether there exists a relationship between some of these variables (any number of them) and the number of sexual partners a student has had in their life. To support the existence of such a relationship, we would expect to see a linear model examining this relationship to have a high R^2 value, a hypothesis test to report a statistically significant p-value, or a set of confidence intervals to show meaningful differences.
+
 Section 3. Data
 ---------------
+
+``` r
+glimpse(data)
+```
+
+    ## Observations: 395
+    ## Variables: 18
+    ## $ ip_address         <chr> "IP Address", "174.193.140.119", "152.3.43....
+    ## $ duration           <chr> "Duration (in seconds)", "33", "66", "56", ...
+    ## $ location_latitude  <chr> "Location Latitude", "35.01210022", "35.995...
+    ## $ location_longitude <chr> "Location Longitude", "-80.88210297", "-78....
+    ## $ student            <chr> "Are you currently a college student?", "Ye...
+    ## $ college            <chr> "Which college do you attend? - Selected Ch...
+    ## $ year               <chr> "In which year of study are you?", "Sophomo...
+    ## $ age                <chr> "What is your age? (Please enter numericall...
+    ## $ gender             <chr> "What is your gender?", "Male", "Female", "...
+    ## $ major              <chr> "What is your current or planned major?", "...
+    ## $ athlete            <chr> "Are you a student-athlete?", "No", "No", "...
+    ## $ greek              <chr> "Are you involved in fraternity or sorority...
+    ## $ politics           <chr> "How would you describe your political view...
+    ## $ religious          <chr> "Would you consider yourself to be religiou...
+    ## $ religion           <chr> "What is your religion? - Selected Choice",...
+    ## $ partners           <chr> "In your life, how many total sexual partne...
+    ## $ partners_college   <chr> "Of those, how many have you had since comi...
+    ## $ relationship       <chr> "Are you currently in a committed romantic ...
