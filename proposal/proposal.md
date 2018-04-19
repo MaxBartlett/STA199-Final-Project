@@ -8,22 +8,22 @@ Section 1. Introduction
 
 For our final project, we wanted to analyze the number of sexual partners college students, primarily those at Duke, have had and whether or not that number correlates to a range of demographic factors, such as religion, year in school, or political views. We collected our own data for this project using a Qualtrics survey. This survey was relatively short and had 14 questions, and the results of these questions are stored in the variables below:
 
-1.  student: Are you a college student?
-2.  college: Which college do you go to?
-3.  year: Which year in college are you?
-4.  age: What is your age?
-5.  gender: What is your gender?
-6.  major: What is your major?
-7.  athlete: Are you a student athlete?
-8.  greek: Are you involved in a fraternity or sorority?
-9.  politics: How would you describe your political views? (There were 5 options for this question: Very Conservative, Somewhat Conservative, Neither, Somewhat Liberal, and Very Liberal)
-10. religious: Would you consider yourself to be religious?
-11. religion: If so, which religion do you practice?
-12. partners: In your life, how many sexual partners have you had?
-13. partners\_college: Since coming to college, how many sexual partners have you had?
-14. relationship: Are you currently in a committed romantic relationship that has lasted longer than 1 month?
+1.  *student*: Are you a college student?
+2.  *college*: Which college do you go to?
+3.  *year*: Which year in college are you?
+4.  *age*: What is your age?
+5.  *gender*: What is your gender?
+6.  *major*: What is your major?
+7.  *athlete*: Are you a student athlete?
+8.  *greek*: Are you involved in a fraternity or sorority?
+9.  *politics*: How would you describe your political views? (There were 5 options for this question: Very Conservative, Somewhat Conservative, Neither, Somewhat Liberal, and Very Liberal)
+10. *religious*: Would you consider yourself to be religious?
+11. *religion*: If so, which religion do you practice?
+12. *partners*: In your life, how many sexual partners have you had?
+13. *partners\_college*: Since coming to college, how many sexual partners have you had?
+14. *relationship*: Are you currently in a committed romantic relationship that has lasted longer than 1 month?
 
-To get answers to our survey, we asked our friends to fill it out and also posted the survey in the All Duke Facebook group and the class Slack channel. We received 396 responses to our survey in less than 2 days. Because our survey was voluntary and taken primarily by Duke students and people we know, we are aware that our data may be skewed and not necessarily super accurate. In other words, our data is definitely subject to voluntary response bias. We are also aware that, by the nature of the questions asked in our survey, we may have gotten some bogus responses (which should be fairly easy to identify and remove from our analysis). However, we hope to still be able to find some interesting trends within our data, and to find a relationship(s) between the number of sexual partners for college students and another one of our variables.
+To get answers to our survey, we asked our friends to fill it out and also posted the survey in the All Duke Facebook group and the class Slack channel. We received 394 responses to our survey in less than 2 days. Because our survey was voluntary and taken primarily by Duke students and people we know, we are aware that our data may be skewed and not necessarily completely representative. In other words, our data is definitely subject to voluntary response bias. We are also aware that, by the nature of the questions asked in our survey, we may have gotten some bogus responses (which we plan to identify and remove from our complete analysis). However, we hope to still be able to find some interesting trends within our data, and to find a relationship(s) between the number of sexual partners for college students and another one of our variables.
 
 Section 2. Data analysis plan
 -----------------------------
@@ -34,35 +34,14 @@ Dependent Variables:
 
 *partners*, *partners\_college*
 
-These two variables are the ones that we expect to be outcomes of other variables in our dataset. We're attempting to see whether and how our demographic data (such as religion, age, political beliefs, etc.) is related to the sexual practices of college students, so it makes sense that our dependent variables are the ones that relate to sexual practices.
-
-``` r
-data <- data %>%
-  filter(!is.na(partners) & partners != "1.00E-04") %>%
-  mutate(partners = as.numeric(partners))
-
-data %>%
-  filter(partners < 100) %>%
-  ggplot(aes(x = partners)) +
-  geom_histogram(binwidth = 5) + 
-  labs(title = "Total Sexual Partners", subtitle = "Sampled college students, 2018")
-```
+An example visualization including these variables is below.
 
 ![](proposal_files/figure-markdown_github/partners-visualization-1.png)
-
-``` r
-data %>%
-  filter(partners < 100) %>%
-  summarize(mean_partners = mean(partners),
-            median_partners = median(partners),
-            min_partners = min(partners),
-            max_partners = max(partners))
-```
 
     ## # A tibble: 1 x 4
     ##   mean_partners median_partners min_partners max_partners
     ##           <dbl>           <dbl>        <dbl>        <dbl>
-    ## 1          4.78              2.           0.          69.
+    ## 1          4.78            2.00            0         69.0
 
 After removing non-numeric answers and filtering for data within a reasonable range, the data seem to be heavily skewed right. There are some outliers, the largest being 69 (it's safe to say this answer can be thrown out along with other joke responses such as "6969", "420", etc.). But in general, the partner data seem to be within our expectations.
 
@@ -70,53 +49,23 @@ Independent Variables:
 
 *student*, *college*, *year*, *age*, *gender*, *major*, *athlete*, *greek*, *politics*, *religious*, *religion*, *relationship*
 
-These are the demographic variables that we hope to be relate to number of sexual partners in total and during college.
-
-For example:
-
-``` r
-data %>%
-  filter(!is.na(greek) & !is.na(gender) & partners <= 68) %>% #removing NAs and bogus outliers
-  group_by(greek, gender) %>%
-  summarize(median = median(partners))
-```
+An example visualization incorporating these variables is below.
 
     ## # A tibble: 5 x 3
     ## # Groups:   greek [?]
     ##   greek gender median
     ##   <chr> <chr>   <dbl>
-    ## 1 No    Female     2.
-    ## 2 No    Male       2.
-    ## 3 No    Other      0.
-    ## 4 Yes   Female     3.
-    ## 5 Yes   Male       6.
-
-``` r
-data %>% 
-  filter(!is.na(major) & college == "Duke University" & partners <= 68) %>%
-  mutate(school =
-  case_when(
-    major %in% c("BME", "ECE", "ME", 
-                 "Biomedical Engineering", "ECE/CS", "Environmental Engineering", 
-                 "Engineering", "Mechanical Engineering", 
-                 "BME ece", "Biomedical engineering", "CEE", "Engineering Management", 
-                 "ECE, CS", "Electrical and Computer Engineering", 
-                 "Civil Engineering", "BME/ECE", "biomedical engineering", 
-                 "Mechanical engineering", "ECE/BME", "Biomedical Engineer", "Ece/cs") ~ "Pratt",
-    TRUE ~ "Trinity")
-  ) %>% 
-  ggplot(aes(x = school, y = partners)) +
-  geom_boxplot() +
-  labs(title = "Sexual Partners by School", subtitle = "Duke University, 2018")
-```
+    ## 1 No    Female   2.00
+    ## 2 No    Male     2.00
+    ## 3 No    Other    0   
+    ## 4 Yes   Female   3.00
+    ## 5 Yes   Male     6.00
 
 ![](proposal_files/figure-markdown_github/independent-vizualisation-1.png)
 
 #### Comparison Groups
 
 Some examples of groups we might use for comparisons could be different major categories, or even subsets of those such as those of certain genders in different major categories. However, we plan on performing these comparisons between as many of these different groups as possible, so we don't have any specific comparison groups in mind.
-
-#### Exploratory Analysis
 
 #### Statistical Methods
 
@@ -137,7 +86,7 @@ Section 3. Data
 glimpse(data)
 ```
 
-    ## Observations: 355
+    ## Observations: 394
     ## Variables: 18
     ## $ ip_address         <chr> "174.193.140.119", "152.3.43.21", "152.3.43...
     ## $ duration           <chr> "33", "66", "56", "39", "53", "40", "39", "...
@@ -154,6 +103,6 @@ glimpse(data)
     ## $ politics           <chr> "Somewhat Liberal", "Somewhat Liberal", "So...
     ## $ religious          <chr> "No", "Yes", "No", "No", "Yes", "Yes", "No"...
     ## $ religion           <chr> NA, "Hinduism", NA, NA, "Christianity", "Ch...
-    ## $ partners           <dbl> 5, 0, 5, 0, 0, 3, 8, 2, 5, 0, 9, 0, 4, 1, 1...
-    ## $ partners_college   <chr> NA, "0", "2", "0", "0", "3", "2", "2", "4",...
+    ## $ partners           <chr> "5", "0", "5", "0", "0", "3", "8", NA, "2",...
+    ## $ partners_college   <chr> NA, "0", "2", "0", "0", "3", "2", NA, "2", ...
     ## $ relationship       <chr> "Yes", "Yes", "Yes", "No", "No", "Yes", "Ye...
