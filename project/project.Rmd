@@ -1,7 +1,7 @@
 ---
-title: "PROJECT TITLE"
-author: "NAME HERE"
-date: "TODAY'S DATE"
+title: "Let's Talk About Sex"
+author: "Max Bartlett, Jennifer Chin, and Liam Pulsifer"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: github_document
 ---
 
