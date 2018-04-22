@@ -92,6 +92,28 @@ sex_survey %>%
 
 ```
 
+```{r by-major}
+
+sex_survey %>%
+  group_by(major_one)%>%
+  filter(!is.na(partners) & !is.na(major_one))%>%
+  summarize(max = max(partners),
+            min = min(partners),
+            mean = mean(partners),
+            median = median(partners),
+            sd = sd(partners),
+            q1 = quantile(partners, .25),
+            q3 = quantile(partners, .75),
+            num = n()
+            )%>%
+  filter(num > 10)%>%
+  arrange(desc(mean))%>%
+  show()
+
+```
+
+
+
 ##Conclusion/Discussion (1-2 pgs)
 
 ###Critiques/Suggestions for Improvement

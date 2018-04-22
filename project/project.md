@@ -46,6 +46,19 @@ We chose to filter the data for students at Duke because we didn't get enough re
 
 ![](project_files/figure-markdown_github/summary-stats-1.png)
 
+    ## # A tibble: 9 x 9
+    ##   major_one                 max   min  mean median    sd    q1    q3   num
+    ##   <chr>                   <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
+    ## 1 Economics                25.0     0  5.93   4.00  6.45 1.00   8.25    28
+    ## 2 Biology                  36.0     0  5.91   2.00  8.28 1.00   9.00    35
+    ## 3 Public Policy Studies    15.0     0  5.25   5.00  4.23 1.75   8.00    28
+    ## 4 Neuroscience             25.0     0  4.95   3.00  6.23 1.00   7.00    21
+    ## 5 Computer Science         34.0     0  4.46   2.00  7.10 1.00   5.00    41
+    ## 6 Electrical & Computer …  17.0     0  4.35   2.00  4.97 1.00   7.25    20
+    ## 7 Psychology               14.0     0  3.46   1.00  4.41 1.00   6.00    13
+    ## 8 Mechanical Engineering   15.0     0  3.38   2.00  4.17 1.00   4.00    13
+    ## 9 Biomedical Engineering   10.0     0  2.81   1.00  3.10 0.750  4.25    16
+
 Conclusion/Discussion (1-2 pgs)
 -------------------------------
 
