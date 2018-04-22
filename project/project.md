@@ -61,6 +61,16 @@ We chose to filter the data for students at Duke because we didn't get enough re
 
 ![](project_files/figure-markdown_github/by-major-plots-1.png)
 
+    ## # A tibble: 4 x 9
+    ##   year        max   min  mean median    sd    q1    q3   num
+    ##   <chr>     <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
+    ## 1 Freshman   24.0     0  2.78   1.00  4.35  0     3.25    68
+    ## 2 Sophomore  34.0     0  4.47   2.00  5.74  1.00  5.00   118
+    ## 3 Junior     24.0     0  4.55   2.00  4.87  1.00  6.00    66
+    ## 4 Senior     36.0     0  5.92   3.00  7.66  1.00  8.00    64
+
+![](project_files/figure-markdown_github/by-year-1.png)
+
 Conclusion/Discussion (1-2 pgs)
 -------------------------------
 

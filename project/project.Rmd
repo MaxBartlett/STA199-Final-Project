@@ -125,6 +125,33 @@ sex_survey %>%
 
 ```
 
+```{r by-year} 
+
+sex_survey %>%
+  group_by(year)%>%
+  filter(!is.na(partners) & !is.na(year))%>%
+  summarize(max = max(partners),
+            min = min(partners),
+            mean = mean(partners),
+            median = median(partners),
+            sd = sd(partners),
+            q1 = quantile(partners, .25),
+            q3 = quantile(partners, .75),
+            num = n()
+            )%>%
+  filter(num > 10)%>%
+  arrange(mean)%>%
+  show()
+
+sex_survey %>%
+  filter(!is.na(partners) & !is.na(year) & !is.na(relationship))%>%
+  mutate(year = factor(year, c("Freshman", "Sophomore", "Junior", "Senior")))%>%
+  group_by(year)%>%
+  ggplot(aes(x = year, y = partners, fill = relationship)) +
+    geom_bar(stat = "summary", position = "dodge", fun.y = "mean")
+
+```
+
 ##Conclusion/Discussion (1-2 pgs)
 
 ###Critiques/Suggestions for Improvement
