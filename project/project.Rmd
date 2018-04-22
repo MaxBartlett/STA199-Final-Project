@@ -151,6 +151,45 @@ sex_survey %>%
     geom_bar(stat = "summary", position = "dodge", fun.y = "mean")
 
 ```
+ 
+```{r pratt-trinity}
+
+sex_survey <- sex_survey%>%
+  mutate(school = if_else(str_detect(major_one, "Engineering"), "Pratt", "Trinity"))
+
+sex_survey %>%
+  filter(!is.na(school) & !is.na(partners))%>%
+  group_by(school)%>%
+  summarize(max = max(partners),
+            min = min(partners),
+            mean = mean(partners),
+            median = median(partners),
+            sd = sd(partners),
+            q1 = quantile(partners, .25),
+            q3 = quantile(partners, .75),
+            num = n()
+            )
+
+sex_survey_test <- sex_survey %>%
+  filter(!is.na(partners) & !is.na(school))%>%
+  specify(response = partners, explanatory = school) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("Trinity", "Pratt"))
+
+ggplot(data = sex_survey_test, aes(x = stat)) +
+  geom_histogram(binwidth = .3) +
+  geom_vline(xintercept = 1.2746, color = "red") +
+  geom_vline(xintercept = -1 * 1.2746, color = "red") +
+  labs(title = "Null distribution of differences in Means")
+
+sex_survey_test %>%
+  filter(stat >= 1.2746) %>%
+  summarise(p_value = 2 * (n() / 1000))
+
+```
+
+Observed Difference = ```r 4.819682 - 3.545455```
 
 ##Conclusion/Discussion (1-2 pgs)
 

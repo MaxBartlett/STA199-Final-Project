@@ -71,6 +71,21 @@ We chose to filter the data for students at Duke because we didn't get enough re
 
 ![](project_files/figure-markdown_github/by-year-1.png)
 
+    ## # A tibble: 2 x 9
+    ##   school    max   min  mean median    sd    q1    q3   num
+    ##   <chr>   <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
+    ## 1 Pratt    17.0     0  3.55   2.00  4.05  1.00  4.50    55
+    ## 2 Trinity  36.0     0  4.82   2.00  6.27  1.00  6.00   244
+
+![](project_files/figure-markdown_github/pratt-trinity-1.png)
+
+    ## # A tibble: 1 x 1
+    ##   p_value
+    ##     <dbl>
+    ## 1   0.146
+
+Observed Difference = `1.274227`
+
 Conclusion/Discussion (1-2 pgs)
 -------------------------------
 
