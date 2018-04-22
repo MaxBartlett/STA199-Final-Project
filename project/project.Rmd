@@ -37,7 +37,7 @@ For our final project, we wanted to analyze the number of sexual partners that c
   10. `religious`: Would you consider yourself to be religious?
   11. `religion`: If so, which religion do you practice?
   12. `partners`: In your life, how many sexual partners have you had?
-  13. `partners_college`: Since coming to college, how many sexual partners have you had?
+  13. `partners`: Since coming to college, how many sexual partners have you had?
   14. `relationship`: Are you currently in a committed romantic relationship that has lasted longer than 1 month?
 
 To get answers to our survey, we asked our friends to fill it out and also posted the survey in the All Duke Facebook group and the class Slack channel. We received 394 submissions in less than 2 days. After poring over the responses, we removed ones with no answers filled in and ones that were evidently bogus, and were left with `r nrow(sex_survey)` observations. Additionally, we split the `major` column into `major_one` and `major_two` to account for people who listed two majors. 
@@ -50,12 +50,12 @@ To get answers to our survey, we asked our friends to fill it out and also poste
 
 sex_survey <- sex_survey %>%
   filter(student == "Yes" & college == "Duke University") %>%
-  select(-ip_address, -duration, -location_latitude, -location_longitude, -student, -college)
+  select(-ip_address, -duration, -location_latitude, -location_longitude, -student, -college)%>%
+  mutate(majcount = if_else(!is.na(major_one) & !is.na(major_two), 2, 1))
 
 ```
 
 We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous.
-
 
 ##Conclusion/Discussion (1-2 pgs)
 

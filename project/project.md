@@ -1,11 +1,7 @@
 Let's Talk About Sex
 ================
 Max Bartlett, Jennifer Chin, and Liam Pulsifer
-19 April, 2018
-
-Your project goes here! Before you submit, make sure your chunks are turned off with `echo = FALSE`.
-
-You can add sections as you see fit. Make sure you have a section called Introduction at the beginning and a section called Conclusion at the end. The rest is up to you!
+22 April, 2018
 
 Introduction
 ------------
@@ -26,13 +22,17 @@ For our final project, we wanted to analyze the number of sexual partners that c
 10. `religious`: Would you consider yourself to be religious?
 11. `religion`: If so, which religion do you practice?
 12. `partners`: In your life, how many sexual partners have you had?
-13. `partners_college`: Since coming to college, how many sexual partners have you had?
+13. `partners`: Since coming to college, how many sexual partners have you had?
 14. `relationship`: Are you currently in a committed romantic relationship that has lasted longer than 1 month?
 
-To get answers to our survey, we asked our friends to fill it out and also posted the survey in the All Duke Facebook group and the class Slack channel. We received 394 responses to our survey in less than 2 days. After poring over the responses, we removed responses with no answers filled in and responses that were evidently bogus, and were left with 361 responses. Additionally, we split the `major` column into `major_one` and `major_two` to account for people who listed two majors. **the word responses is used too many times here**
+To get answers to our survey, we asked our friends to fill it out and also posted the survey in the All Duke Facebook group and the class Slack channel. We received 394 submissions in less than 2 days. After poring over the responses, we removed ones with no answers filled in and ones that were evidently bogus, and were left with 361 observations. Additionally, we split the `major` column into `major_one` and `major_two` to account for people who listed two majors.
 
 Research Question
 -----------------
+
+Our research question is "Which demographic factors are most strongly associated with number of sexual partners in college students?" To answer this question using the data we collected (described above), we first need to clean the data and remove some unnecessary variables and observations.
+
+We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students to do any meaningful analysis. We also chose to remove some variables, such as ip\_address from which the survey was taken, which we deemed extraneous.
 
 Conclusion/Discussion (1-2 pgs)
 -------------------------------
