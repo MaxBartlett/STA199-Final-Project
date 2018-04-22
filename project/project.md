@@ -59,6 +59,8 @@ We chose to filter the data for students at Duke because we didn't get enough re
     ## 8 Mechanical Engineering   15.0     0  3.38   2.00  4.17 1.00   4.00    13
     ## 9 Biomedical Engineering   10.0     0  2.81   1.00  3.10 0.750  4.25    16
 
+![](project_files/figure-markdown_github/by-major-plots-1.png)
+
 Conclusion/Discussion (1-2 pgs)
 -------------------------------
 
