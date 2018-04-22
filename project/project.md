@@ -34,6 +34,18 @@ Our research question is "Which demographic factors are most strongly associated
 
 We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students to do any meaningful analysis. We also chose to remove some variables, such as ip\_address from which the survey was taken, which we deemed extraneous.
 
+    ## # A tibble: 1 x 8
+    ##     max   min  mean median    sd    q1    q3   num
+    ##   <dbl> <dbl> <dbl>  <int> <dbl> <dbl> <dbl> <int>
+    ## 1  36.0     0  4.41      2  5.81  1.00  5.50   319
+
+    ## # A tibble: 1 x 8
+    ##     max   min  mean median    sd    q1    q3   num
+    ##   <dbl> <dbl> <dbl>  <int> <dbl> <dbl> <dbl> <int>
+    ## 1  25.0     0  3.22      2  4.53  1.00  4.00   317
+
+![](project_files/figure-markdown_github/summary-stats-1.png)
+
 Conclusion/Discussion (1-2 pgs)
 -------------------------------
 

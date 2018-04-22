@@ -57,6 +57,41 @@ sex_survey <- sex_survey %>%
 
 We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous.
 
+
+```{r summary-stats}
+
+sex_survey %>%
+  filter(!is.na(partners))%>%
+  summarize(max = max(partners),
+            min = min(partners),
+            mean = mean(partners),
+            median = median(partners),
+            sd = sd(partners),
+            q1 = quantile(partners, .25),
+            q3 = quantile(partners, .75),
+            num = n()
+            )%>%
+  show()
+sex_survey %>%
+  filter(!is.na(partners_college))%>%
+  summarize(max = max(partners_college),
+            min = min(partners_college),
+            mean = mean(partners_college),
+            median = median(partners_college),
+            sd = sd(partners_college),
+            q1 = quantile(partners_college, .25),
+            q3 = quantile(partners_college, .75),
+            num = n()
+            )%>%
+  show()
+
+sex_survey %>%
+  filter(!is.na(partners))%>%
+  ggplot(aes(x = 1, y = partners)) +
+    geom_boxplot()
+
+```
+
 ##Conclusion/Discussion (1-2 pgs)
 
 ###Critiques/Suggestions for Improvement
