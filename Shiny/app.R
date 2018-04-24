@@ -14,34 +14,23 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                     
                     # Select type of trend to plot
                     selectInput(inputId = "x", label = "X Axis:",
-                                choices = c("major_one", "gender", "year"),
-                                selected = "major_one"),
+                                choices = c("age"),
+                                selected = "age"),
                     
                     selectInput(inputId = "y", label = "Y Axis: ",
                                 choices = c("partners", "partners_college"),
-                                selected = "partners_college")
-                    # Select date range to be plotted
-                    #dateRangeInput("date", strong("Date range"), 
-                     #              start = "2007-01-01", end = "2017-07-31",
-                     #              min = "2007-01-01", max = "2017-07-31"),
+                                selected = "partners_college"),
                     
-                    # Select whether to overlay smooth trend line
-                    #checkboxInput(inputId = "smoother", 
-                      #            label = strong("Overlay smooth trend line"), 
-                       #           value = TRUE),
-                    
-                    # Display only if the smoother is checked
-                    #conditionalPanel(condition = "input.smoother == true",
-                     #                sliderInput(inputId = "f", label = "Smoother span:",
-                      #                           min = 0.01, max = 1, value = 0.67, step = 0.01,
-                       #                          animate = animationOptions(interval = 100)),
-                       #              HTML("Higher values give more smoothness.")
-                    #)
+                    selectInput(inputId = "z", label = "Color: ",
+                                choices = c("gender", "year", "student", "major_one",
+                                            "athlete", "greek", "politics", "religious",
+                                            "relationship"),
+                                selected = "gender")
                   ),
                   
                   # Output: Description, lineplot, and reference
                   mainPanel(
-                    plotOutput(outputId = "scatterplot", height = "300px")
+                    plotOutput(outputId = "scatterplot")
                     #textOutput(outputId = "desc")
                     #tags$a(href = "https://www.google.com/finance/domestic_trends", "Source: Google Domestic Trends", target = "_blank")
                   )
@@ -50,7 +39,7 @@ ui <- fluidPage(theme = shinytheme("lumen"),
 
 server <- function(input, output) {
   output$scatterplot <- renderPlot({
-    ggplot(data = sex_survey, aes_string(x = input$x, y = input$y)) +
+    ggplot(data = sex_survey, aes_string(x = input$x, y = input$y, color = input$z)) +
       geom_point()
   })
 }
