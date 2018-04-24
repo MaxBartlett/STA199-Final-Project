@@ -4,7 +4,7 @@ library(shinythemes)
 library(tidyverse)
 
 # Load data
-sex_survey <- read_csv("data/SexSurvey_tidy.csv")
+sex_survey <- read_csv("/cloud/project/data/SexSurvey_tidy.csv")
 
 # UI
 ui <- fluidPage(theme = shinytheme("lumen"),
@@ -13,11 +13,11 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                   sidebarPanel(
                     
                     # Select type of trend to plot
-                    selectInput(inputId = "y", label = "Y Axis:",
+                    selectInput(inputId = "x", label = "X Axis:",
                                 choices = c("major_one", "gender", "year"),
                                 selected = "major_one"),
                     
-                    selectInput(inputId = "x", label = "X Axis: ",
+                    selectInput(inputId = "y", label = "Y Axis: ",
                                 choices = c("partners", "partners_college"),
                                 selected = "partners_college")
                     # Select date range to be plotted
