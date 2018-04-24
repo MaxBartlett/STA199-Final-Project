@@ -47,3 +47,13 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                   )
                 )
 )
+
+server <- function(input, output) {
+  output$scatterplot <- renderPlot({
+    ggplot(data = sex_survey, aes_string(x = input$x, y = input$y)) +
+      geom_point()
+  })
+}
+
+shinyApp(ui = ui, server = server)
+  
