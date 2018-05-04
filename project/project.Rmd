@@ -57,11 +57,12 @@ sex_survey <- sex_survey %>%
 
 We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous.
 
-
+###Summary Statistics
+The following tibble and lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.
 ```{r summary-stats}
 
 sex_survey %>%
-  filter(!is.na(partners))%>%
+  filter(!is.na(partners)) %>%
   summarize(max = max(partners),
             min = min(partners),
             mean = mean(partners),
@@ -70,10 +71,10 @@ sex_survey %>%
             q1 = quantile(partners, .25),
             q3 = quantile(partners, .75),
             num = n()
-            )%>%
+            ) %>%
   show()
 sex_survey %>%
-  filter(!is.na(partners_college))%>%
+  filter(!is.na(partners_college)) %>%
   summarize(max = max(partners_college),
             min = min(partners_college),
             mean = mean(partners_college),
@@ -82,21 +83,48 @@ sex_survey %>%
             q1 = quantile(partners_college, .25),
             q3 = quantile(partners_college, .75),
             num = n()
-            )%>%
+            ) %>%
   show()
-
-sex_survey %>%
-  filter(!is.na(partners))%>%
-  ggplot(aes(x = 1, y = partners)) +
-    geom_boxplot()
-
 ```
 
-```{r by-major}
+The mean number of total partners is greater than the mean number of partners since coming to college, yet the median number of partners stays the same, at two. This is an interesting observation, as we expected the median to increase as well. This may indicate that those who are already having sex continue to have new partners in college, and those who didn't have sex in high school are continuing to abstain from sex.
 
+####Sexual Activity Groupings
+We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent, Sexually active since college, Abstinent in college, and Sexually active.
+
+```{r sex-groups}
+sex_survey_grouped <-
+  sex_survey %>%
+  mutate(partner_group = case_when(
+    partners == 0 & partners_college == 0 ~ "Abstinent",
+    partners == 0 & partners_college > 0 ~ "Sexually active since college",
+    partners > 0 & partners_college == 0 ~ "Abstinent in college",
+    partners > 0 & partners_college > 0 ~ "Sexually active"
+  ))
+
+sex_survey_grouped %>%
+  filter(!is.na(partner_group)) %>%
+  count(partner_group)
+```
+
+There is a surprising result here: not a single person who wasn't sexually active in high school is sexually active in college. Since we expect that many people who abstain from sex do so for religious reasons, we want to know if this an accurate within our data?
+
+####Religion and Abstinence
+
+```{r religious-abstinance}
+sex_survey_grouped %>%
+  filter(partner_group == "Abstinent" & !is.na(religious)) %>%
+  count(religious)
+```
+
+Only just over 1/3 of those who declared themselves as Abstinent reported being religious. Therefore, the majority of non-abstinent people are doing so for other reasons.
+
+###College Major vs. Sexual Partners
+Next, we wanted to see if choice of major and number of sexual partners are at all correlated. We displayed the summary statistics for majors with more than 10 respondents, arranged by mean number of partners, and plotted the results below on a box and whisker plot.
+```{r by-major}
 sex_survey %>%
-  group_by(major_one)%>%
-  filter(!is.na(partners) & !is.na(major_one))%>%
+  group_by(major_one) %>%
+  filter(!is.na(partners) & !is.na(major_one)) %>%
   summarize(max = max(partners),
             min = min(partners),
             mean = mean(partners),
@@ -105,13 +133,12 @@ sex_survey %>%
             q1 = quantile(partners, .25),
             q3 = quantile(partners, .75),
             num = n()
-            )%>%
-  filter(num > 10)%>%
-  arrange(desc(mean))%>%
+            ) %>%
+  filter(num > 10) %>%
+  arrange(desc(mean)) %>%
   show()
 
 ```
-
 
 ```{r by-major-plots}
 
@@ -124,6 +151,54 @@ sex_survey %>%
     coord_flip()
 
 ```
+
+Economics and biology topped the list with a mean of nearly six partners, while public policy studies had the largest median with five partners. One observation we instantly made is that of the stark contrast between Pratt and Trinity students. Does the stereotype that engineering majors have fewer sexual partners than other students hold true?
+
+###Trinity & Pratt vs. Sexual Partners
+
+We first categorized respondents into either Trinity or Pratt based on their major, then displayed the summary statistics for number of partners.
+```{r pratt-trinity}
+sex_survey <- sex_survey %>%
+  mutate(school = if_else(str_detect(major_one, "Engineering"), "Pratt", "Trinity"))
+
+sex_survey %>%
+  filter(!is.na(school) & !is.na(partners)) %>%
+  group_by(school) %>%
+  summarize(max = max(partners),
+            min = min(partners),
+            mean = mean(partners),
+            median = median(partners),
+            sd = sd(partners),
+            q1 = quantile(partners, .25),
+            q3 = quantile(partners, .75),
+            num = n()
+            )
+```
+
+It appears that the mean number of sexual partners for Trinity students is 4.82, higher than the mean number of sexual partners for Pratt students, at 3.55. But is this difference statistically significant? We performed an independence test to find the answer.
+
+```{r pratt-trinity-diff-in-means}
+sex_survey_test <- sex_survey %>%
+  filter(!is.na(partners) & !is.na(school))%>%
+  specify(response = partners, explanatory = school) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("Trinity", "Pratt"))
+
+ggplot(data = sex_survey_test, aes(x = stat)) +
+  geom_histogram(binwidth = .3) +
+  geom_vline(xintercept = 1.2746, color = "red") +
+  geom_vline(xintercept = -1 * 1.2746, color = "red") +
+  labs(title = "Null distribution of differences in Means")
+
+sex_survey_test %>%
+  filter(stat >= 1.2746) %>%
+  summarise(p_value = 2 * (n() / 1000))
+```
+
+Observed Difference = ```r 4.819682 - 3.545455```
+
+Since the p value is greater than our significance level of .05, we can conclude that the difference is not statistically significant.
 
 ```{r by-year} 
 
@@ -151,51 +226,14 @@ sex_survey %>%
     geom_bar(stat = "summary", position = "dodge", fun.y = "mean")
 
 ```
- 
-```{r pratt-trinity}
-
-sex_survey <- sex_survey%>%
-  mutate(school = if_else(str_detect(major_one, "Engineering"), "Pratt", "Trinity"))
-
-sex_survey %>%
-  filter(!is.na(school) & !is.na(partners))%>%
-  group_by(school)%>%
-  summarize(max = max(partners),
-            min = min(partners),
-            mean = mean(partners),
-            median = median(partners),
-            sd = sd(partners),
-            q1 = quantile(partners, .25),
-            q3 = quantile(partners, .75),
-            num = n()
-            )
-
-sex_survey_test <- sex_survey %>%
-  filter(!is.na(partners) & !is.na(school))%>%
-  specify(response = partners, explanatory = school) %>%
-  hypothesize(null = "independence") %>%
-  generate(reps = 1000, type = "permute") %>%
-  calculate(stat = "diff in means", order = c("Trinity", "Pratt"))
-
-ggplot(data = sex_survey_test, aes(x = stat)) +
-  geom_histogram(binwidth = .3) +
-  geom_vline(xintercept = 1.2746, color = "red") +
-  geom_vline(xintercept = -1 * 1.2746, color = "red") +
-  labs(title = "Null distribution of differences in Means")
-
-sex_survey_test %>%
-  filter(stat >= 1.2746) %>%
-  summarise(p_value = 2 * (n() / 1000))
-
-```
-
-Observed Difference = ```r 4.819682 - 3.545455```
 
 ##Conclusion/Discussion (1-2 pgs)
 
-###Critiques/Suggestions for Improvement
-##### Issues pertaining to the reliability and validity of your data, and appropriateness of the statistical analysis should be discussed here.
+###Summary
 
-##### A paragraph on what you would do differently if you were able to start over with the project or what you would do next if you were going to continue work on the project should also be included.
+###What we could improve
 
 Because our survey was voluntary and taken primarily by Duke students and people we know, we are aware that our data may be skewed and not necessarily completely representative. In other words, our data is definitely subject to voluntary response bias. **add more**
+
+-Data was taken mainly from Facebook users
+-Data didn't include enough numerical variables, which limited the types of analysis we could do

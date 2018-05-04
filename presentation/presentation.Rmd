@@ -1,0 +1,22 @@
+---
+title: "Let's Talk About Sex"
+author: "Team Power: Max Bartlett, Jenny Chin, Liam Pulsifer"
+date: May 5, 2018
+output:
+  beamer_presentation:
+    theme: "PaloAlto"
+    fonttheme: "structurebold"
+---
+
+# Overview
+
+## Our data
+- 14 question, short survey
+- Surveyed ~400 people
+- Cleaning data
+- Motivating questions
+
+#Findings
+
+# Conclusion
+## Potential Issues/Improvements

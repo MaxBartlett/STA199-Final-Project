@@ -1,7 +1,7 @@
 Let's Talk About Sex
 ================
 Max Bartlett, Jennifer Chin, and Liam Pulsifer
-22 April, 2018
+04 May, 2018
 
 Introduction
 ------------
@@ -34,65 +34,106 @@ Our research question is "Which demographic factors are most strongly associated
 
 We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students to do any meaningful analysis. We also chose to remove some variables, such as ip\_address from which the survey was taken, which we deemed extraneous.
 
-    ## # A tibble: 1 x 8
-    ##     max   min  mean median    sd    q1    q3   num
-    ##   <dbl> <dbl> <dbl>  <int> <dbl> <dbl> <dbl> <int>
-    ## 1  36.0     0  4.41      2  5.81  1.00  5.50   319
+### Summary Statistics
+
+The following tibble and lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.
 
     ## # A tibble: 1 x 8
     ##     max   min  mean median    sd    q1    q3   num
     ##   <dbl> <dbl> <dbl>  <int> <dbl> <dbl> <dbl> <int>
-    ## 1  25.0     0  3.22      2  4.53  1.00  4.00   317
+    ## 1   36.    0.  4.41      2  5.81    1.  5.50   319
 
-![](project_files/figure-markdown_github/summary-stats-1.png)
+    ## # A tibble: 1 x 8
+    ##     max   min  mean median    sd    q1    q3   num
+    ##   <dbl> <dbl> <dbl>  <int> <dbl> <dbl> <dbl> <int>
+    ## 1   25.    0.  3.22      2  4.53    1.    4.   317
+
+The mean number of total partners is greater than the mean number of partners since coming to college, yet the median number of partners stays the same, at two. This is an interesting observation, as we expected the median to increase as well. This may indicate that those who are already having sex continue to have new partners in college, and those who didn't have sex in high school are continuing to abstain from sex.
+
+#### Sexual Activity Groupings
+
+We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent, Sexually active since college, Abstinent in college, and Sexually active.
+
+    ## # A tibble: 3 x 2
+    ##   partner_group            n
+    ##   <chr>                <int>
+    ## 1 Abstinent               59
+    ## 2 Abstinent in college    19
+    ## 3 Sexually active        239
+
+There is a surprising result here: not a single person who wasn't sexually active in high school is sexually active in college. Since we expect that many people who abstain from sex do so for religious reasons, we want to know if this an accurate within our data?
+
+#### Religion and Abstinence
+
+    ## # A tibble: 2 x 2
+    ##   religious     n
+    ##   <chr>     <int>
+    ## 1 No           36
+    ## 2 Yes          22
+
+Only just over 1/3 of those who declared themselves as Abstinent reported being religious. Therefore, the majority of non-abstinent people are doing so for other reasons.
+
+### College Major vs. Sexual Partners
+
+Next, we wanted to see if choice of major and number of sexual partners are at all correlated. We displayed the summary statistics for majors with more than 10 respondents, arranged by mean number of partners, and plotted the results below on a box and whisker plot.
 
     ## # A tibble: 9 x 9
     ##   major_one                 max   min  mean median    sd    q1    q3   num
     ##   <chr>                   <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
-    ## 1 Economics                25.0     0  5.93   4.00  6.45 1.00   8.25    28
-    ## 2 Biology                  36.0     0  5.91   2.00  8.28 1.00   9.00    35
-    ## 3 Public Policy Studies    15.0     0  5.25   5.00  4.23 1.75   8.00    28
-    ## 4 Neuroscience             25.0     0  4.95   3.00  6.23 1.00   7.00    21
-    ## 5 Computer Science         34.0     0  4.46   2.00  7.10 1.00   5.00    41
-    ## 6 Electrical & Computer …  17.0     0  4.35   2.00  4.97 1.00   7.25    20
-    ## 7 Psychology               14.0     0  3.46   1.00  4.41 1.00   6.00    13
-    ## 8 Mechanical Engineering   15.0     0  3.38   2.00  4.17 1.00   4.00    13
-    ## 9 Biomedical Engineering   10.0     0  2.81   1.00  3.10 0.750  4.25    16
+    ## 1 Economics                 25.    0.  5.93     4.  6.45 1.00   8.25    28
+    ## 2 Biology                   36.    0.  5.91     2.  8.28 1.00   9.00    35
+    ## 3 Public Policy Studies     15.    0.  5.25     5.  4.23 1.75   8.00    28
+    ## 4 Neuroscience              25.    0.  4.95     3.  6.23 1.00   7.00    21
+    ## 5 Computer Science          34.    0.  4.46     2.  7.10 1.00   5.00    41
+    ## 6 Electrical & Computer …   17.    0.  4.35     2.  4.97 1.00   7.25    20
+    ## 7 Psychology                14.    0.  3.46     1.  4.41 1.00   6.00    13
+    ## 8 Mechanical Engineering    15.    0.  3.38     2.  4.17 1.00   4.00    13
+    ## 9 Biomedical Engineering    10.    0.  2.81     1.  3.10 0.750  4.25    16
 
 ![](project_files/figure-markdown_github/by-major-plots-1.png)
 
-    ## # A tibble: 4 x 9
-    ##   year        max   min  mean median    sd    q1    q3   num
-    ##   <chr>     <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
-    ## 1 Freshman   24.0     0  2.78   1.00  4.35  0     3.25    68
-    ## 2 Sophomore  34.0     0  4.47   2.00  5.74  1.00  5.00   118
-    ## 3 Junior     24.0     0  4.55   2.00  4.87  1.00  6.00    66
-    ## 4 Senior     36.0     0  5.92   3.00  7.66  1.00  8.00    64
+Economics and biology topped the list with a mean of nearly six partners, while public policy studies had the largest median with five partners. One observation we instantly made is that of the stark contrast between Pratt and Trinity students. Does the stereotype that engineering majors have fewer sexual partners than other students hold true?
 
-![](project_files/figure-markdown_github/by-year-1.png)
+### Trinity & Pratt vs. Sexual Partners
+
+We first categorized respondents into either Trinity or Pratt based on their major, then displayed the summary statistics for number of partners.
 
     ## # A tibble: 2 x 9
     ##   school    max   min  mean median    sd    q1    q3   num
     ##   <chr>   <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
-    ## 1 Pratt    17.0     0  3.55   2.00  4.05  1.00  4.50    55
-    ## 2 Trinity  36.0     0  4.82   2.00  6.27  1.00  6.00   244
+    ## 1 Pratt     17.    0.  3.55     2.  4.05    1.  4.50    55
+    ## 2 Trinity   36.    0.  4.82     2.  6.27    1.  6.00   244
 
-![](project_files/figure-markdown_github/pratt-trinity-1.png)
+It appears that the mean number of sexual partners for Trinity students is 4.82, higher than the mean number of sexual partners for Pratt students, at 3.55. But is this difference statistically significant? We performed an independence test to find the answer.
+
+![](project_files/figure-markdown_github/pratt-trinity-diff-in-means-1.png)
 
     ## # A tibble: 1 x 1
     ##   p_value
     ##     <dbl>
-    ## 1   0.146
+    ## 1   0.170
 
 Observed Difference = `1.274227`
+
+Since the p value is greater than our significance level of .05, we can conclude that the difference is not statistically significant.
+
+    ## # A tibble: 4 x 9
+    ##   year        max   min  mean median    sd    q1    q3   num
+    ##   <chr>     <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
+    ## 1 Freshman    24.    0.  2.78     1.  4.35    0.  3.25    68
+    ## 2 Sophomore   34.    0.  4.47     2.  5.74    1.  5.00   118
+    ## 3 Junior      24.    0.  4.55     2.  4.87    1.  6.00    66
+    ## 4 Senior      36.    0.  5.92     3.  7.66    1.  8.00    64
+
+![](project_files/figure-markdown_github/by-year-1.png)
 
 Conclusion/Discussion (1-2 pgs)
 -------------------------------
 
-### Critiques/Suggestions for Improvement
+### Summary
 
-##### Issues pertaining to the reliability and validity of your data, and appropriateness of the statistical analysis should be discussed here.
-
-##### A paragraph on what you would do differently if you were able to start over with the project or what you would do next if you were going to continue work on the project should also be included.
+### What we could improve
 
 Because our survey was voluntary and taken primarily by Duke students and people we know, we are aware that our data may be skewed and not necessarily completely representative. In other words, our data is definitely subject to voluntary response bias. **add more**
+
+-Data was taken mainly from Facebook users -Data didn't include enough numerical variables, which limited the types of analysis we could do
