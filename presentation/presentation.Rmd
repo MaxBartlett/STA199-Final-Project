@@ -16,6 +16,22 @@ output:
 - Cleaning data
 - Motivating questions
 
+#Shiny App
+
 # Findings
+![](images/summary-stats)
+
+# Findings
+![](images/abstinence)
+
+# Findings
+![](images/by-major-plots-1)
+
+# Findings
+![](images/pratt-trinity-diff-in-means-1)
+
+# Findings
+![](images/by-year-1)
+
 # Conclusion
 ## Potential Issues/Improvements

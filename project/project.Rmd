@@ -59,6 +59,7 @@ We chose to filter the data for students at Duke because we didn't get enough re
 
 ###Summary Statistics
 The following tibble and lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.
+
 ```{r summary-stats}
 
 sex_survey %>%
@@ -146,7 +147,7 @@ sex_survey %>%
   group_by(major_one)%>%
   filter(!is.na(partners) & !is.na(major_one))%>%
   filter(n() > 10)%>%
-  ggplot(aes(x = major_one, y = partners)) +
+  ggplot(aes(x = reorder(major_one, partners, FUN = median), y = partners)) +
     geom_boxplot(varwidth = TRUE) +
     coord_flip()
 
