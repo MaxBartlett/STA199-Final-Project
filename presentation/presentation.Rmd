@@ -16,7 +16,6 @@ output:
 - Cleaning data
 - Motivating questions
 
-#Findings
-
+# Findings
 # Conclusion
 ## Potential Issues/Improvements
