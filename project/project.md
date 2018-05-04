@@ -55,11 +55,11 @@ The mean number of total partners is greater than the mean number of partners si
 We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent, Sexually active since college, Abstinent in college, and Sexually active.
 
     ## # A tibble: 3 x 2
-    ##   partner_group            n
-    ##   <chr>                <int>
-    ## 1 Abstinent               59
-    ## 2 Abstinent in college    19
-    ## 3 Sexually active        239
+    ##   partner_group                         n
+    ##   <chr>                             <int>
+    ## 1 Abstinent since college              19
+    ## 2 Abstinent since high school          59
+    ## 3 Sexually active since high school   239
 
 There is a surprising result here: not a single person who wasn't sexually active in high school is sexually active in college. Since we expect that many people who abstain from sex do so for religious reasons, we want to know if this an accurate within our data?
 
@@ -111,7 +111,7 @@ It appears that the mean number of sexual partners for Trinity students is 4.82,
     ## # A tibble: 1 x 1
     ##   p_value
     ##     <dbl>
-    ## 1   0.170
+    ## 1   0.118
 
 Observed Difference = `1.274227`
 
@@ -127,13 +127,13 @@ Since the p value is greater than our significance level of .05, we can conclude
 
 ![](project_files/figure-markdown_github/by-year-1.png)
 
-Conclusion/Discussion (1-2 pgs)
--------------------------------
+Conclusion
+----------
 
 ### Summary
 
 ### What we could improve
 
-Because our survey was voluntary and taken primarily by Duke students and people we know, we are aware that our data may be skewed and not necessarily completely representative. In other words, our data is definitely subject to voluntary response bias. **add more**
+Because our survey was voluntary and taken primarily by Duke students and people we know, we are aware that our data may be skewed and not necessarily completely representative. In other words, our data is definitely subject to voluntary response bias. Additionally, we only shared the survey on Facebook, so our sample is only representative of Duke Students on Facebook.
 
--Data was taken mainly from Facebook users -Data didn't include enough numerical variables, which limited the types of analysis we could do
+As far as the content of our survey, we could have been more specific and thorough in our questioning. One of the most glaring omissions was of the lack of definition of "sexual partner." This definition varies between people, and may have influenced people's individual responses. Additionally, there may be other confounding variables that we didn't ask for in the survey. For example, data on sexual orientation would've been useful for our analysis. We also could've included additional numerical variables, for instance, a rating of how sexually active people thought they were compared to the rest of the Duke community (1 being less sexually active than nearly all Duke students, 10 being more sexually active than nearly all Duke students, and 5 being in the middle) in order to gauge Duke students' views on sex and dating at Duke. Adding more numerical variables would allow us to use a wider variety of statistical techniques.
