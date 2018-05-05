@@ -111,7 +111,11 @@ It appears that the mean number of sexual partners for Trinity students is 4.82,
     ## # A tibble: 1 x 1
     ##   p_value
     ##     <dbl>
+<<<<<<< HEAD
     ## 1   0.116
+=======
+    ## 1   0.132
+>>>>>>> 6c424beaee557dff263842101e9883a5f8149db6
 
 Observed Difference = `1.274227`
 
@@ -126,6 +130,61 @@ Since the p value is greater than our significance level of .05, we can conclude
     ## 4 Senior      36.    0.  5.92     3.  7.66    1.  8.00    64
 
 ![](project_files/figure-markdown_github/by-year-1.png)
+
+##### Linear Model
+
+After looking at these different factors and considering which have real correlations with numbers of sexual partners, a natural place to go next was to try to create a linear model which would predict number of sexual partners based on a number of factors.
+
+We created two linear models, one using forward- and one using backward-selection for adjusted R^2 value. The backward-selection model modelled *partners* using the variables *religion*, *year*, *age*, *gender*, *athlete*, *greek*, *politics*, and *relationship*. The forward-selection model, which is shown below, modelled *partners* using the variables *religion*, *greek*, *athlete*, and *politics*, and its adjusted R^2 value was the higher of the two, at `0.2147764`, compared to the `0.1728393` of the backwards-selection model.
+
+    ## 
+    ## Call:
+    ## lm(formula = partners ~ religion + greek + athlete + politics, 
+    ##     data = sex_survey)
+    ## 
+    ## Coefficients:
+    ##                           (Intercept)  
+    ##                                8.3296  
+    ##                  religionChristianity  
+    ##                               -7.6823  
+    ##     religionChristianity and Buddhism  
+    ##                               -8.3296  
+    ##                      religionHinduism  
+    ##                               -9.4628  
+    ##                         religionIslam  
+    ##                               -5.8311  
+    ##                       religionJudaism  
+    ##                               -5.4114  
+    ##                         religionOther  
+    ##                                2.4605  
+    ##                              greekYes  
+    ##                                3.4255  
+    ##                            athleteYes  
+    ##                                3.6021  
+    ##      politicsNeither,Somewhat Liberal  
+    ##                               -0.6473  
+    ##         politicsSomewhat Conservative  
+    ##                                3.0588  
+    ##              politicsSomewhat Liberal  
+    ##                                0.6704  
+    ## politicsSomewhat Liberal,Very Liberal  
+    ##                                5.9272  
+    ##             politicsVery Conservative  
+    ##                               -1.1225  
+    ##                  politicsVery Liberal  
+    ##                                1.2099
+
+###### Forwards-selection model adjusted R^2
+
+    ## [1] 0.2147764
+
+###### Backwards-selection model adjusted R^2
+
+    ## [1] 0.1728393
+
+This model is an interesting one. It includes *religion* and *politics*, two variables which in American conversation are usually seen as factors in people's sexual practices (religions having tenets condoning certain practices, and different political groups having different beliefs on social issues like sexual activity). It also includes two variables in the Duke community which are seen as factors in a person's level of sexual activity, *greek* and *athlete*, with both groups being stereotyped as having higher levels of sexual activity. Interestingly enough, however, it doesn't include *year* or *age*, indicating that perhaps people aren't having sex with a significant number of people throughout their college years. The model also doesn't include the *relationship* variable or the *major\_one* variable, though that is perhaps unsurprising.
+
+It is important, however, to take this model with a grain of salt because the adjusted R^2 is only `0.2147764`, which is rather small to make any judgements with.
 
 Conclusion
 ----------

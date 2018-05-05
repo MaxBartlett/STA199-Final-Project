@@ -13,12 +13,20 @@ opts_chunk$set(echo = FALSE)
 ```{r load-packages, echo = FALSE, include = FALSE}
 library(tidyverse)
 library(infer)
+library(broom)
 ```
 
 ```{r read-data, echo = FALSE, include = FALSE}
 setwd("/cloud/project")
 sex_survey <- read_csv("data/SexSurvey_tidy.csv")
 ```
+
+```{r setseed}
+
+set.seed(12345678)
+
+```
+
 
 ##Introduction
 ###Description of Data
@@ -231,6 +239,44 @@ sex_survey %>%
   theme_bw()
 
 ```
+
+##### Linear Model
+
+After looking at these different factors and considering which have real correlations with numbers of sexual partners, a natural place to go next was to try to create a linear model which would predict number of sexual partners based on a number of factors.
+
+```{r create-models}
+
+sex_survey_model <- lm(partners ~ religion + greek + athlete + politics, data = sex_survey)
+
+sex_survey_model_backwards <- lm(partners ~ religion + year + age + gender + athlete + greek + politics + relationship, data = sex_survey)
+
+```
+
+
+We created two linear models, one using forward- and one using backward-selection for adjusted R^2 value. The backward-selection model modelled *partners* using the variables *religion*, *year*, *age*, *gender*, *athlete*, *greek*, *politics*, and *relationship*. The forward-selection model, which is shown below, modelled *partners* using the variables *religion*, *greek*, *athlete*, and *politics*, and its adjusted R^2 value was the higher of the two, at ```r glance(sex_survey_model)$adj.r.squared```, compared to the ```r glance(sex_survey_model_backwards)$adj.r.squared ``` of the backwards-selection model. 
+
+```{r model-display}
+
+(sex_survey_model)
+
+```
+
+###### Forwards-selection model adjusted R^2
+```{r glance-model}
+glance(sex_survey_model)$adj.r.squared
+```
+
+###### Backwards-selection model adjusted R^2
+```{r glance-model-backwards}
+glance(sex_survey_model_backwards)$adj.r.squared
+```
+
+
+
+This model is an interesting one. It includes *religion* and *politics*, two variables which in American conversation are usually seen as factors in people's sexual practices (religions having tenets condoning certain practices, and different political groups having different beliefs on social issues like sexual activity). It also includes two variables in the Duke community which are seen as factors in a person's level of sexual activity, *greek* and *athlete*, with both groups being stereotyped as having higher levels of sexual activity. Interestingly enough, however, it doesn't include *year* or *age*, indicating that perhaps people aren't having sex with a significant number of people throughout their college years. The model also doesn't include the *relationship* variable or the *major_one* variable, though that is perhaps unsurprising.
+
+It is important, however, to take this model with a grain of salt because the adjusted R^2 is only ```r glance(sex_survey_model)$adj.r.squared```, which is rather small to make any judgements with.
+
 
 ##Conclusion
 
