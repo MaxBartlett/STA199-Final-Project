@@ -68,7 +68,7 @@ sex_survey <- sex_survey %>%
 We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students (fewer than 10) to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous to our research question.
 
 ###Summary Statistics
-The following tibble and lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.
+The following tibble lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.
 
 ```{r summary-stats}
 
@@ -101,7 +101,8 @@ sex_survey %>%
 The mean number of total partners is greater than the mean number of partners since coming to college, yet the median number of partners stays the same, at two. This is an interesting observation, as we expected the median to increase as well. This may indicate that those who are already having sex continue to have new partners in college, and those who didn't have sex in high school are continuing to abstain from sex.
 
 ####Sexual Activity Groupings
-We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Not sexually active in high school and college, Sexually active in high school and not sexually active in college, Sexually active in high school and college, Not sexually active in high school and sexually active in college.
+
+To investigate thiss, we can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Not sexually active in high school and college, Sexually active in high school and not sexually active in college, Sexually active in high school and college, Not sexually active in high school and sexually active in college.
 
 ```{r sex-groups}
 sex_survey_grouped <-
@@ -131,6 +132,7 @@ sex_survey_grouped %>%
 Only just over 1/3 of those who declared themselves as Abstinent reported being religious. Therefore, the majority of non-abstinent people are doing so for other reasons.
 
 ###College Major vs. Sexual Partners
+
 Next, we wanted to see if choice of major and number of sexual partners are at all correlated. We displayed the summary statistics for majors with more than 10 respondents, arranged by mean number of partners, and plotted the results below on a box and whisker plot.
 ```{r by-major}
 sex_survey %>%
