@@ -68,7 +68,7 @@ sex_survey <- sex_survey %>%
 We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students (fewer than 10) to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous to our research question.
 
 ###Summary Statistics
-The following tibble and lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.
+The following tibble lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.
 
 ```{r summary-stats}
 
@@ -101,6 +101,7 @@ sex_survey %>%
 The mean number of total partners is greater than the mean number of partners since coming to college, yet the median number of partners stays the same, at two. This is an interesting observation, as we expected the median to increase as well. This may indicate that those who are already having sex continue to have new partners in college, and those who didn't have sex in high school are continuing to abstain from sex.
 
 ####Sexual Activity Groupings
+
 We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Not sexually active in high school and college, Sexually active in high school and not sexually active in college, Sexually active in high school and college, Not sexually active in high school and sexually active in college.
 
 ```{r sex-groups}
@@ -246,9 +247,10 @@ sex_survey %>%
 
 ```
 
-<<<<<<< HEAD
+
 As seen in the summary statistics and the graph, the number of sexual partners, both mean and median, increases as year in school progresses (Seniors, on average, have had more sexual partners that freshmen, on average). This rather linear trend is what we expected to see in this graph; as people get older, they have had more sexual partners. This trend is extremely evident for Duke students who participate in Greek life. The average number of sexual partners greatly increases for students in Greek life throughout their 4 years in college, while the increase in average number of sexual partners for students who aren't in Greek life is much smaller. While we would have to run more tests to determine how correlated Greek life and number of sexual partners are, this graph certainly provides evidence to further investigate that relationship.
-=======
+
+
 ##### Linear Model
 
 After looking at these different factors and considering which have real correlations with numbers of sexual partners, a natural place to go next was to try to create a linear model which would predict number of sexual partners based on a number of factors.
@@ -286,7 +288,6 @@ This model is an interesting one. It includes *religion* and *politics*, two var
 
 It is important, however, to take this model with a grain of salt because the adjusted R^2 is only ```r glance(sex_survey_model)$adj.r.squared```, which is rather small to make any judgements with.
 
->>>>>>> 053ec25df8cbaf5cc02073db25b3441ad785ef5f
 
 ##Conclusion
 
