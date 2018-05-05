@@ -58,4 +58,8 @@ output:
 ![Adj. $R^2 = 0.2147764$](images/forward-selection-model)
 
 # Conclusion
-## Potential Issues/Improvements
+## Critiques
+
+- Voluntary response bias
+- Definition of sexual partner
+- Privacy
