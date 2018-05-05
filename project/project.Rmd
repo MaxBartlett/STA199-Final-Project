@@ -38,17 +38,19 @@ For our final project, we wanted to analyze the number of sexual partners that c
   3. `year`: Which year in college are you?
   4. `age`: What is your age?
   5. `gender`: What is your gender?
-  6. `major`: What is your major?
+  6. `major*`: What is your major?
   7. `athlete`: Are you a student athlete?
   8. `greek`: Are you involved in a fraternity or sorority?
-  9. `politics`: How would you describe your political views? (There were 5 options for this question: Very Conservative, Somewhat Conservative, Neither, Somewhat Liberal, and Very Liberal)
+  9. `politics`: How would you describe your political views? (There were 5 response options for this question: Very Conservative, Somewhat Conservative, Neither, Somewhat Liberal, and Very Liberal)
   10. `religious`: Would you consider yourself to be religious?
   11. `religion`: If so, which religion do you practice?
   12. `partners`: In your life, how many sexual partners have you had?
-  13. `partners`: Since coming to college, how many sexual partners have you had?
+  13. `partners_college`: Since coming to college, how many sexual partners have you had?
   14. `relationship`: Are you currently in a committed romantic relationship that has lasted longer than 1 month?
+  
+`*`split into two variables for analysis 
 
-To get answers to our survey, we asked our friends to fill it out and also posted the survey in the All Duke Facebook group and the class Slack channel. We received 394 submissions in less than 2 days. After pouring over the responses, we removed ones with no answers filled in and ones that were evidently bogus, and were left with `r nrow(sex_survey)` observations. Additionally, we split the `major` column into `major_one` and `major_two` to account for people who listed two majors. 
+To get answers to our survey, we posted the survey in the All Duke Facebook group and the class Slack channel. We received 394 submissions in less than 2 days. After poring over the responses, we removed ones with no answers filled in and ones that were evidently bogus, and were left with `r nrow(sex_survey)` observations. Additionally, we split the `major` column into `major_one` and `major_two` to account for people who listed two majors. 
 
 ##Research Question
 
@@ -63,7 +65,7 @@ sex_survey <- sex_survey %>%
 
 ```
 
-We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous.
+We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students (fewer than 10) to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous to our research question.
 
 ###Summary Statistics
 The following tibble and lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.

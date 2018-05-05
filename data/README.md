@@ -3,7 +3,7 @@
 ####  Number of College Sexual Partners by Demographic Data
 Data Type:
 
-- Tidy dataframe, 395 observations of 18 variables
+- Tidy dataframe, 361 observations of 19 variables
 
 Variables:
 
@@ -16,7 +16,8 @@ Variables:
 - *year*: String indicating current academic year
 - *age*: Numeric value of subject's current age
 - *gender*: String value indicating gender of subject (Male, Female, Other)	
-- *major*: String value of subject's academic major
+- *major_one*: String value of subject's first academic major
+- *major_two*: String value of subject's second academic major, if applicable
 - *athlete*: "Yes" or "No" value indicating whether the subject is a student-athlete	
 - *greek*: "Yes" or "No" value indicating whether the subject is involved in Greek (fraternity or sorority) life on their college campus.
 - *politics*: String value indicating subject's political beliefs 
