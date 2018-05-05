@@ -91,16 +91,16 @@ sex_survey %>%
 The mean number of total partners is greater than the mean number of partners since coming to college, yet the median number of partners stays the same, at two. This is an interesting observation, as we expected the median to increase as well. This may indicate that those who are already having sex continue to have new partners in college, and those who didn't have sex in high school are continuing to abstain from sex.
 
 ####Sexual Activity Groupings
-We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent, Sexually active since college, Abstinent in college, and Sexually active.
+We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent since high school, Abstinent since college, Sexually active since high school, and Sexually active since college.
 
 ```{r sex-groups}
 sex_survey_grouped <-
   sex_survey %>%
   mutate(partner_group = case_when(
     partners == 0 & partners_college == 0 ~ "Abstinent since high school",
-    partners == 0 & partners_college > 0 ~ "Sexually active since college",
     partners > 0 & partners_college == 0 ~ "Abstinent since college",
-    partners > 0 & partners_college > 0 ~ "Sexually active since high school"
+    partners > 0 & partners_college > 0 ~ "Sexually active since high school",
+    partners == 0 & partners_college > 0 ~ "Sexually active since college"
   ))
 
 sex_survey_grouped %>%
@@ -149,8 +149,9 @@ sex_survey %>%
   filter(n() > 10)%>%
   ggplot(aes(x = reorder(major_one, partners, FUN = median), y = partners)) +
     geom_boxplot(varwidth = TRUE) +
-    coord_flip()
-
+    coord_flip() +
+    labs(title = "College Major vs. Partners", subtitle = "Duke University Study, 2018", x = "Major", y = "Partners") +
+    theme_bw()
 ```
 
 Economics and biology topped the list with a mean of nearly six partners, while public policy studies had the largest median with five partners. One observation we instantly made is that of the stark contrast between Pratt and Trinity students. Does the stereotype that engineering majors have fewer sexual partners than other students hold true?
@@ -190,7 +191,8 @@ ggplot(data = sex_survey_test, aes(x = stat)) +
   geom_histogram(binwidth = .3) +
   geom_vline(xintercept = 1.2746, color = "red") +
   geom_vline(xintercept = -1 * 1.2746, color = "red") +
-  labs(title = "Null distribution of differences in Means")
+  labs(title = "Null distribution of differences in Means", subtitle = "Duke University Study, 2018", x = "Stat", y = "Count") +
+  theme_bw()
 
 sex_survey_test %>%
   filter(stat >= 1.2746) %>%
@@ -223,8 +225,10 @@ sex_survey %>%
   filter(!is.na(partners) & !is.na(year) & !is.na(relationship))%>%
   mutate(year = factor(year, c("Freshman", "Sophomore", "Junior", "Senior")))%>%
   group_by(year)%>%
-  ggplot(aes(x = year, y = partners, fill = relationship)) +
-    geom_bar(stat = "summary", position = "dodge", fun.y = "mean")
+  ggplot(aes(x = year, y = partners, fill = greek)) +
+    geom_bar(stat = "summary", position = "dodge", fun.y = "mean") +
+  labs(title = "Greek Life and Year vs. Partners", subtitle = "Duke University Study, 2018", x = "Year", y = "Partners", fill = "Greek") +
+  theme_bw()
 
 ```
 

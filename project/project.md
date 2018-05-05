@@ -52,7 +52,7 @@ The mean number of total partners is greater than the mean number of partners si
 
 #### Sexual Activity Groupings
 
-We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent, Sexually active since college, Abstinent in college, and Sexually active.
+We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent since high school, Abstinent since college, Sexually active since high school, and Sexually active since college.
 
     ## # A tibble: 3 x 2
     ##   partner_group                         n
@@ -111,7 +111,7 @@ It appears that the mean number of sexual partners for Trinity students is 4.82,
     ## # A tibble: 1 x 1
     ##   p_value
     ##     <dbl>
-    ## 1   0.146
+    ## 1   0.140
 
 Observed Difference = `1.274227`
 
