@@ -25,7 +25,7 @@ output:
 
 ## Findings - Summary Statistics
 
-![Summary Statistics of Sexual Partners (total and in high school)](images/summary-stats)
+![Summary Statistics of Sexual Partners (total and in college)](images/summary-stats)
 
 ----
 
@@ -35,21 +35,39 @@ output:
 
 ----
 
+##Findings - Religion and Abstinence
+
+![Sexual Activity Groupings](images/religion-and-abstinence)
+
+----
+
 ## Findings - Major
 
 ![Sexual Activity By Major](images/by-major-plots-1)
 
 ----
 
-## Findings - School
+## Findings -- Trinity vs. Pratt Summary Statistics
 
-![Sexual Activity by Trinity vs. Pratt](images/pratt-trinity-diff-in-means-1)
+![Sexual Activity By Major](images/trinity-and-pratt)
+
+----
+
+## Findings - Trinity vs. Pratt Differences in Means
+
+![p-value = 0.132](images/pratt-trinity-diff-in-means-1)
 
 ----
 
 ## Findings - Greek Life
 
 ![Sexual Activity by Involvement in Greek Life](images/by-year-1)
+
+----
+
+## Findings - Greek Life Difference in Means
+
+![p-value = 0](images/greek-hypothesis-test-1)
 
 ----
 
