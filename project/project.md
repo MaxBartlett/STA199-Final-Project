@@ -111,11 +111,7 @@ It appears that the mean number of sexual partners for Trinity students is 4.82,
     ## # A tibble: 1 x 1
     ##   p_value
     ##     <dbl>
-<<<<<<< HEAD
-    ## 1   0.116
-=======
     ## 1   0.132
->>>>>>> 6c424beaee557dff263842101e9883a5f8149db6
 
 Observed Difference = `1.274227`
 

@@ -1,6 +1,6 @@
 ---
 title: "Let's Talk About Sex"
-author: "Team Power: Max Bartlett, Jenny Chin, Liam Pulsifer"
+author: "Team POWER: Max Bartlett, Jenny Chin, Liam Pulsifer"
 date: May 5, 2018
 output:
   beamer_presentation:
@@ -11,27 +11,51 @@ output:
 # Overview
 
 ## Our data
-- 14 question, short survey
-- Surveyed ~400 people
-- Cleaning data
-- Motivating questions
 
-#Shiny App
+- 14 questions, short Qualtrics survey
+- Surveyed ~400 people
+- Cleaned data
+- Our motivating questions
+
+# Shiny App
 
 # Findings
+
+----
+
+## Findings - Summary Statistics
+
 ![](images/summary-stats)
 
-# Findings
+----
+
+##Findings - Abstinence
+
 ![](images/abstinence)
 
-# Findings
+----
+
+## Findings - Major
+
 ![](images/by-major-plots-1)
 
-# Findings
+----
+
+## Findings - School
+
 ![](images/pratt-trinity-diff-in-means-1)
 
-# Findings
+----
+
+## Findings - Greek Life
+
 ![](images/by-year-1)
+
+----
+
+## Findings - Forward Selection Linear Model
+
+![Adj. $R^2 = 0.2147764$](images/forward-selection-model)
 
 # Conclusion
 ## Potential Issues/Improvements
