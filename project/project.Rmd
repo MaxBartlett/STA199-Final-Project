@@ -38,17 +38,19 @@ For our final project, we wanted to analyze the number of sexual partners that c
   3. `year`: Which year in college are you?
   4. `age`: What is your age?
   5. `gender`: What is your gender?
-  6. `major`: What is your major?
+  6. `major*`: What is your major?
   7. `athlete`: Are you a student athlete?
   8. `greek`: Are you involved in a fraternity or sorority?
-  9. `politics`: How would you describe your political views? (There were 5 options for this question: Very Conservative, Somewhat Conservative, Neither, Somewhat Liberal, and Very Liberal)
+  9. `politics`: How would you describe your political views? (There were 5 response options for this question: Very Conservative, Somewhat Conservative, Neither, Somewhat Liberal, and Very Liberal)
   10. `religious`: Would you consider yourself to be religious?
   11. `religion`: If so, which religion do you practice?
   12. `partners`: In your life, how many sexual partners have you had?
-  13. `partners`: Since coming to college, how many sexual partners have you had?
+  13. `partners_college`: Since coming to college, how many sexual partners have you had?
   14. `relationship`: Are you currently in a committed romantic relationship that has lasted longer than 1 month?
+  
+`*`split into two variables for analysis 
 
-To get answers to our survey, we asked our friends to fill it out and also posted the survey in the All Duke Facebook group and the class Slack channel. We received 394 submissions in less than 2 days. After pouring over the responses, we removed ones with no answers filled in and ones that were evidently bogus, and were left with `r nrow(sex_survey)` observations. Additionally, we split the `major` column into `major_one` and `major_two` to account for people who listed two majors. 
+To get answers to our survey, we posted the survey in the All Duke Facebook group and the class Slack channel. We received 394 submissions in less than 2 days. After poring over the responses, we removed ones with no answers filled in and ones that were evidently bogus, and were left with `r nrow(sex_survey)` observations. Additionally, we split the `major` column into `major_one` and `major_two` to account for people who listed two majors. 
 
 ##Research Question
 
@@ -63,7 +65,7 @@ sex_survey <- sex_survey %>%
 
 ```
 
-We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous.
+We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students (fewer than 10) to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous to our research question.
 
 ###Summary Statistics
 The following tibble and lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.
@@ -116,7 +118,7 @@ sex_survey_grouped %>%
   count(partner_group)
 ```
 
-There is a surprising result here: not a single person who wasn't sexually active in high school is sexually active in college. Since we expect that many people who abstain from sex do so for religious reasons, we want to know if this an accurate within our data?
+There is a surprising result here: not a single person who wasn't sexually active in high school is sexually active in college. Since we expect that many people who abstain from sex do so for religious reasons, we want to know if this an accurate hypothesis within our data?
 
 ####Religion and Abstinence
 
@@ -162,9 +164,9 @@ sex_survey %>%
     theme_bw()
 ```
 
-Economics and biology topped the list with a mean of nearly six partners, while public policy studies had the largest median with five partners. One observation we instantly made is that of the stark contrast between Pratt and Trinity students. Does the stereotype that engineering majors have fewer sexual partners than other students hold true?
+Economics and Biology topped the list with a mean of nearly six partners, while Public Policy Studies had the largest median with five partners. Biology and Computer Science had the most extreme upper outliers, with each major containing one observation of more than 30 sexual partners. There were no lower outliers because each major's lower whisker included 0 (the lowest possible value). One observation we instantly made is the stark contrast between Pratt and Trinity students. Does the stereotype that engineering majors have fewer sexual partners than other students hold true?
 
-###Trinity & Pratt vs. Sexual Partners
+####Trinity & Pratt vs. Sexual Partners
 
 We first categorized respondents into either Trinity or Pratt based on their major, then displayed the summary statistics for number of partners.
 ```{r pratt-trinity}
@@ -211,6 +213,10 @@ Observed Difference = ```r 4.819682 - 3.545455```
 
 Since the p value is greater than our significance level of .05, we can conclude that the difference is not statistically significant.
 
+### Greek Life & Year in School vs. Sexual Partners
+
+We also wanted to see if the stereotypes surrounding Greek life and sexual promiscuity were true for our dataset. After experimenting with our shiny app and grouping and coloring a bar graph with a broad mixture of categorial variables, we found that the bar graph grouped by year in school and colored by greek life was particularly interesting. Below we have calculated the summary statistics on our dataset based on year in school, and reproduced the graph of interest. 
+
 ```{r by-year} 
 
 sex_survey %>%
@@ -240,7 +246,9 @@ sex_survey %>%
 
 ```
 
-##### Linear Model
+As seen in the summary statistics and the graph, the number of sexual partners, both mean and median, increases as year in school progresses (Seniors, on average, have had more sexual partners that freshmen, on average). This rather linear trend is what we expected to see in this graph; as people get older, they have had more sexual partners. This trend is extremely evident for Duke students who participate in Greek life. The average number of sexual partners greatly increases for students in Greek life throughout their 4 years in college, while the increase in average number of sexual partners for students who aren't in Greek life is much smaller. While we would have to run more tests to determine how correlated Greek life and number of sexual partners are, this graph certainly provides evidence to further investigate that relationship.
+
+### Linear Model
 
 After looking at these different factors and considering which have real correlations with numbers of sexual partners, a natural place to go next was to try to create a linear model which would predict number of sexual partners based on a number of factors.
 
@@ -251,7 +259,6 @@ sex_survey_model <- lm(partners ~ religion + greek + athlete + politics, data = 
 sex_survey_model_backwards <- lm(partners ~ religion + year + age + gender + athlete + greek + politics + relationship, data = sex_survey)
 
 ```
-
 
 We created two linear models, one using forward- and one using backward-selection for adjusted R^2 value. The backward-selection model modelled *partners* using the variables *religion*, *year*, *age*, *gender*, *athlete*, *greek*, *politics*, and *relationship*. The forward-selection model, which is shown below, modelled *partners* using the variables *religion*, *greek*, *athlete*, and *politics*, and its adjusted R^2 value was the higher of the two, at ```r glance(sex_survey_model)$adj.r.squared```, compared to the ```r glance(sex_survey_model_backwards)$adj.r.squared ``` of the backwards-selection model. 
 
@@ -271,16 +278,27 @@ glance(sex_survey_model)$adj.r.squared
 glance(sex_survey_model_backwards)$adj.r.squared
 ```
 
-
-
 This model is an interesting one. It includes *religion* and *politics*, two variables which in American conversation are usually seen as factors in people's sexual practices (religions having tenets condoning certain practices, and different political groups having different beliefs on social issues like sexual activity). It also includes two variables in the Duke community which are seen as factors in a person's level of sexual activity, *greek* and *athlete*, with both groups being stereotyped as having higher levels of sexual activity. Interestingly enough, however, it doesn't include *year* or *age*, indicating that perhaps people aren't having sex with a significant number of people throughout their college years. The model also doesn't include the *relationship* variable or the *major_one* variable, though that is perhaps unsurprising.
 
 It is important, however, to take this model with a grain of salt because the adjusted R^2 is only ```r glance(sex_survey_model)$adj.r.squared```, which is rather small to make any judgements with.
 
-
 ##Conclusion
 
 ###Summary
+
+Overall, this dataset was very interesting for our group to work with and we discovered some intriguing relationships between the average number of sexual partners of Duke students and different demographic variables. We also enjoyed comparing our findings to typical stereotypes regarding sexual promiscuity and people of a certain demographic. Our shiny app allows us to analyze a variable number of relationships with ease by combining different categorical variables and seeing the resulting graph. 
+
+After running some initial summary statistics on average total number of sexual partners and average number of sexual partners since coming to college, we found that the mean was higher for total sexual partners while the median remained the same. This was an interesting observation, as it shows that people's sexual habits may remain the same throughout high school and college more often than is typically believed. 
+
+These initial summary statistics prompted us to group our dataset into 4 categories: Not sexually active in high school and college, Sexually active in high school and not sexually active in college, Sexually active in high school and college, Not sexually active in high school and sexually active in college. Perhaps the most shocking discovery throughout the entire project was finding that that there were zero observations of people who were not sexually active in high school, but sexually active in college. This caused us to wonder if perhaps this decision to remain abstinent was the result of religious views, so we decided to see how many of the people who weren't sexually active in high school or college were religious. About 1/3 of this group reported being religious.
+
+Next, we wanted to analyze the relationship between college major and number of sexual partners. We ran summary statistics on majors with more than 10 observations, and found that, on average, Economics and Biology majors are the most sexually active. After running these summary statistics and plotting box and whisker plots, it was evident that there was a difference between the Trinity majors and the Pratt majors. To investigate this difference further, we grouped our dataset based on which school the observed major was in: Trinity or Pratt. After running summary statistics on this variable, our data showed that the mean number of sexual partners was higher for Trinity students but that the median was the same for Trinity and Pratt students. In order to determine if this difference was statistically significant, we ran an independence test and found that the p value was greater than our significance level of 0.05, so the results were not statistically significant.
+
+We also wanted to look at the relationship between greek life participation, year in school, and number of sexual partners. We found that the number of sexual partners increases as year in school progresses, which is something we would expect. We also found that this is particularly true for students who participate in greek life, which suggests that the stereotypes surrounding greek life and sexual promiscuity may have some validity to them. 
+
+Finally, we decided to create a linear model to fully answer our research question and determine which demographic factors had the strongest relationship with number of sexual partners. We created two linear models using forward and backward selection with the adjusted R-squared value. The forward selection model included religion, greek, athlete, and politics as influential variables and had an adjusted R-squared value of 0.2147764, which was higher than the backward selection model with 0.1728393. This model is rather interesting as it includes solely variables we would expect to be in the model, but it leaves out variables such as age that people would typically expect to be positively correlated with number of sexual partners. 
+
+In conclusion, we found that religion, greek, athlete, and politics were the demographic factors that were most strongly associated with number of sexual partners. We dispelled some stereotypes regarding sexual activity and reinforced others. This project definitely gives way to further statistical research in the area. 
 
 ###Critiques
 
