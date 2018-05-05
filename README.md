@@ -1,2 +1,2 @@
 # project
-Starter docs and code and data for the final project
+TEAM POWER's final project for Statistics 199, Spring 2018
