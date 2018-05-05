@@ -133,7 +133,24 @@ We also wanted to see if the stereotypes surrounding Greek life and sexual promi
 
 ![](project_files/figure-markdown_github/by-year-1.png)
 
-As seen in the summary statistics and the graph, the number of sexual partners, both mean and median, increases as year in school progresses (Seniors, on average, have had more sexual partners that freshmen, on average). This rather linear trend is what we expected to see in this graph; as people get older, they have had more sexual partners. This trend is extremely evident for Duke students who participate in Greek life. The average number of sexual partners greatly increases for students in Greek life throughout their 4 years in college, while the increase in average number of sexual partners for students who aren't in Greek life is much smaller. While we would have to run more tests to determine how correlated Greek life and number of sexual partners are, this graph certainly provides evidence to further investigate that relationship.
+As seen in the summary statistics and the graph, the number of sexual partners, both mean and median, increases as year in school progresses (Seniors, on average, have had more sexual partners that freshmen, on average). This rather linear trend is what we expected to see in this graph; as people get older, they have had more sexual partners. This trend is extremely evident for Duke students who participate in Greek life. The average number of sexual partners greatly increases for students in Greek life throughout their 4 years in college, while the increase in average number of sexual partners for students who aren't in Greek life is much smaller. This results in a large gap in the overall mean numbers of sexual partners for students in Greek organizations and students who are not.
+
+To see whether this difference in number of sexual partners between students in Greek life and students not in Greek life is a significant one, we can again conduct a hypothesis test. Our null hypothesis is that there is no difference between the mean number of sexual partners for students in Greek organizations and students who are not. Our alternative hypothesis is that there is such a difference. To investigate this hypothesis, we can generate a null distribution, and then examine the p-value of seeing a result equally or more extreme than our observed result given that generated null distribution.
+
+    ## # A tibble: 2 x 2
+    ##   greek  mean
+    ##   <chr> <dbl>
+    ## 1 No     3.63
+    ## 2 Yes    5.95
+
+![](project_files/figure-markdown_github/greek-hypothesis-test-1.png)
+
+    ## # A tibble: 1 x 1
+    ##   p_value
+    ##     <dbl>
+    ## 1      0.
+
+The p-value is 0, which gives us enough evidence to say that there is in fact a difference in the mean number of sexual partners between students who are in fraternities and sororities and students who are not.
 
 ### Linear Model
 

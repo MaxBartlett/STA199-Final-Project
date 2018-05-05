@@ -15,7 +15,7 @@ output:
 - 14 questions, short Qualtrics survey
 - Surveyed ~400 people
 - Cleaned data
-- Our motivating questions
+- Our motivating question
 
 # Shiny App
 
@@ -25,31 +25,31 @@ output:
 
 ## Findings - Summary Statistics
 
-![](images/summary-stats)
+![Summary Statistics of Sexual Partners (total and in high school)](images/summary-stats)
 
 ----
 
 ##Findings - Abstinence
 
-![](images/abstinence)
+![Sexual Activity Groupings](images/abstinence)
 
 ----
 
 ## Findings - Major
 
-![](images/by-major-plots-1)
+![Sexual Activity By Major](images/by-major-plots-1)
 
 ----
 
 ## Findings - School
 
-![](images/pratt-trinity-diff-in-means-1)
+![Sexual Activity by Trinity vs. Pratt](images/pratt-trinity-diff-in-means-1)
 
 ----
 
 ## Findings - Greek Life
 
-![](images/by-year-1)
+![Sexual Activity by Involvement in Greek Life](images/by-year-1)
 
 ----
 
