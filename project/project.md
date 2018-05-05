@@ -148,7 +148,11 @@ To see whether this difference in number of sexual partners between students in 
     ## # A tibble: 1 x 1
     ##   p_value
     ##     <dbl>
+<<<<<<< HEAD
+    ## 1      0.
+=======
     ## 1       0
+>>>>>>> 8cced6f890dc001ffb9de173ab95637648247b84
 
 The p-value is 0, which gives us enough evidence to say that there is in fact a difference in the mean number of sexual partners between students who are in fraternities and sororities and students who are not.
 
