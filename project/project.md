@@ -25,7 +25,7 @@ For our final project, we wanted to analyze the number of sexual partners that c
 13. `partners_college`: Since coming to college, how many sexual partners have you had?
 14. `relationship`: Are you currently in a committed romantic relationship that has lasted longer than 1 month?
 
-`*`split into two variables
+`*`split into two variables for analysis
 
 To get answers to our survey, we posted the survey in the All Duke Facebook group and the class Slack channel. We received 394 submissions in less than 2 days. After poring over the responses, we removed ones with no answers filled in and ones that were evidently bogus, and were left with 361 observations. Additionally, we split the `major` column into `major_one` and `major_two` to account for people who listed two majors.
 

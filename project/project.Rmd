@@ -65,7 +65,7 @@ sex_survey <- sex_survey %>%
 
 ```
 
-We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous.
+We chose to filter the data for students at Duke because we didn't get enough responses from non-Duke students (fewer than 10) to do any meaningful analysis. We also chose to remove some variables, such as ip_address from which the survey was taken, which we deemed extraneous to our research question.
 
 ###Summary Statistics
 The following tibble and lists the summary statistics for the total number of partners and the number of partners since coming to college from the responses in our dataset.
