@@ -61,7 +61,7 @@ We can split students into four groups based on whether or not they were sexuall
     ## 2 Abstinent since high school          59
     ## 3 Sexually active since high school   239
 
-There is a surprising result here: not a single person who wasn't sexually active in high school is sexually active in college. Since we expect that many people who abstain from sex do so for religious reasons, we want to know if this an accurate within our data?
+There is a surprising result here: not a single person who wasn't sexually active in high school is sexually active in college. Since we expect that many people who abstain from sex do so for religious reasons, we want to know if this an accurate hypothesis within our data?
 
 #### Religion and Abstinence
 
@@ -92,9 +92,9 @@ Next, we wanted to see if choice of major and number of sexual partners are at a
 
 ![](project_files/figure-markdown_github/by-major-plots-1.png)
 
-Economics and biology topped the list with a mean of nearly six partners, while public policy studies had the largest median with five partners. One observation we instantly made is that of the stark contrast between Pratt and Trinity students. Does the stereotype that engineering majors have fewer sexual partners than other students hold true?
+Economics and Biology topped the list with a mean of nearly six partners, while Public Policy Studies had the largest median with five partners. Biology and Computer Science had the most extreme upper outliers, with each major containing one observation of more than 30 sexual partners. There were no lower outliers because each major's lower whisker included 0 (the lowest possible value). One observation we instantly made is the stark contrast between Pratt and Trinity students. Does the stereotype that engineering majors have fewer sexual partners than other students hold true?
 
-### Trinity & Pratt vs. Sexual Partners
+#### Trinity & Pratt vs. Sexual Partners
 
 We first categorized respondents into either Trinity or Pratt based on their major, then displayed the summary statistics for number of partners.
 
@@ -111,11 +111,15 @@ It appears that the mean number of sexual partners for Trinity students is 4.82,
     ## # A tibble: 1 x 1
     ##   p_value
     ##     <dbl>
-    ## 1   0.140
+    ## 1   0.104
 
 Observed Difference = `1.274227`
 
 Since the p value is greater than our significance level of .05, we can conclude that the difference is not statistically significant.
+
+### Greek Life & Year in School vs. Sexual Partners
+
+We also wanted to see if the stereotypes surrounding Greek life and sexual promiscuity were true for our dataset. After experimenting with our shiny app and grouping and coloring a bar graph with a broad mixture of categorial variables, we found that the bar graph grouped by year in school and colored by greek life was particularly interesting. Below we have calculated the summary statistics on our dataset based on year in school, and reproduced the graph of interest.
 
     ## # A tibble: 4 x 9
     ##   year        max   min  mean median    sd    q1    q3   num
@@ -126,6 +130,8 @@ Since the p value is greater than our significance level of .05, we can conclude
     ## 4 Senior     36.0     0  5.92   3.00  7.66  1.00  8.00    64
 
 ![](project_files/figure-markdown_github/by-year-1.png)
+
+As seen in the summary statistics and the graph, the number of sexual partners, both mean and median, increases as year in school progresses (Seniors, on average, have had more sexual partners that freshmen, on average). This rather linear trend is what we expected to see in this graph; as people get older, they have had more sexual partners. This trend is extremely evident for Duke students who participate in Greek life. The average number of sexual partners greatly increases for students in Greek life throughout their 4 years in college, while the increase in average number of sexual partners for students who aren't in Greek life is much smaller. While we would have to run more tests to determine how correlated Greek life and number of sexual partners are, this graph certainly provides evidence to further investigate that relationship.
 
 Conclusion
 ----------
