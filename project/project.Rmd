@@ -330,7 +330,7 @@ We also wanted to look at the relationship between greek life participation, yea
 
 Finally, we decided to create a linear model to fully answer our research question and determine which demographic factors had the strongest relationship with number of sexual partners. We created two linear models using forward and backward selection with the adjusted R-squared value. The forward selection model included religion, greek, athlete, and politics as influential variables and had an adjusted R-squared value of 0.2147764, which was higher than the backward selection model with 0.1728393. This model is rather interesting as it includes solely variables we would expect to be in the model, but it leaves out variables such as age that people would typically expect to be positively correlated with number of sexual partners. 
 
-In conclusion, we found that religion, greek, athlete, and politics were the demographic factors that were most strongly associated with number of sexual partners. We dispelled some stereotypes regarding sexual activity and reinforced others. This project definitely gives way to further statistical research in the area. 
+In conclusion, we found that religion, greek, athlete, politics, and year were the demographic factors that were most strongly associated with number of sexual partners. We dispelled some stereotypes regarding sexual activity and reinforced others. This project definitely gives way to further statistical research in the area. 
 
 ###Critiques
 

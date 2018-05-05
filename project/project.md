@@ -43,12 +43,12 @@ The following tibble lists the summary statistics for the total number of partne
     ## # A tibble: 1 x 8
     ##     max   min  mean median    sd    q1    q3   num
     ##   <dbl> <dbl> <dbl>  <int> <dbl> <dbl> <dbl> <int>
-    ## 1   36.    0.  4.41      2  5.81    1.  5.50   319
+    ## 1  36.0     0  4.41      2  5.81  1.00  5.50   319
 
     ## # A tibble: 1 x 8
     ##     max   min  mean median    sd    q1    q3   num
     ##   <dbl> <dbl> <dbl>  <int> <dbl> <dbl> <dbl> <int>
-    ## 1   25.    0.  3.22      2  4.53    1.    4.   317
+    ## 1  25.0     0  3.22      2  4.53  1.00  4.00   317
 
 The mean number of total partners is greater than the mean number of partners since coming to college, yet the median number of partners stays the same, at two. This is an interesting observation, as we expected the median to increase as well. This may indicate that those who are already having sex continue to have new partners in college, and those who didn't have sex in high school are continuing to abstain from sex.
 
@@ -82,15 +82,15 @@ Next, we wanted to see if choice of major and number of sexual partners are at a
     ## # A tibble: 9 x 9
     ##   major_one                 max   min  mean median    sd    q1    q3   num
     ##   <chr>                   <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
-    ## 1 Economics                 25.    0.  5.93     4.  6.45 1.00   8.25    28
-    ## 2 Biology                   36.    0.  5.91     2.  8.28 1.00   9.00    35
-    ## 3 Public Policy Studies     15.    0.  5.25     5.  4.23 1.75   8.00    28
-    ## 4 Neuroscience              25.    0.  4.95     3.  6.23 1.00   7.00    21
-    ## 5 Computer Science          34.    0.  4.46     2.  7.10 1.00   5.00    41
-    ## 6 Electrical & Computer …   17.    0.  4.35     2.  4.97 1.00   7.25    20
-    ## 7 Psychology                14.    0.  3.46     1.  4.41 1.00   6.00    13
-    ## 8 Mechanical Engineering    15.    0.  3.38     2.  4.17 1.00   4.00    13
-    ## 9 Biomedical Engineering    10.    0.  2.81     1.  3.10 0.750  4.25    16
+    ## 1 Economics                25.0     0  5.93   4.00  6.45 1.00   8.25    28
+    ## 2 Biology                  36.0     0  5.91   2.00  8.28 1.00   9.00    35
+    ## 3 Public Policy Studies    15.0     0  5.25   5.00  4.23 1.75   8.00    28
+    ## 4 Neuroscience             25.0     0  4.95   3.00  6.23 1.00   7.00    21
+    ## 5 Computer Science         34.0     0  4.46   2.00  7.10 1.00   5.00    41
+    ## 6 Electrical & Computer …  17.0     0  4.35   2.00  4.97 1.00   7.25    20
+    ## 7 Psychology               14.0     0  3.46   1.00  4.41 1.00   6.00    13
+    ## 8 Mechanical Engineering   15.0     0  3.38   2.00  4.17 1.00   4.00    13
+    ## 9 Biomedical Engineering   10.0     0  2.81   1.00  3.10 0.750  4.25    16
 
 ![](project_files/figure-markdown_github/by-major-plots-1.png)
 
@@ -103,8 +103,8 @@ We first categorized respondents into either Trinity or Pratt based on their maj
     ## # A tibble: 2 x 9
     ##   school    max   min  mean median    sd    q1    q3   num
     ##   <chr>   <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
-    ## 1 Pratt     17.    0.  3.55     2.  4.05    1.  4.50    55
-    ## 2 Trinity   36.    0.  4.82     2.  6.27    1.  6.00   244
+    ## 1 Pratt    17.0     0  3.55   2.00  4.05  1.00  4.50    55
+    ## 2 Trinity  36.0     0  4.82   2.00  6.27  1.00  6.00   244
 
 It appears that the mean number of sexual partners for Trinity students is 4.82, higher than the mean number of sexual partners for Pratt students, at 3.55. But is this difference statistically significant? We performed an independence test to find the answer.
 
@@ -126,14 +126,31 @@ We also wanted to see if the stereotypes surrounding Greek life and sexual promi
     ## # A tibble: 4 x 9
     ##   year        max   min  mean median    sd    q1    q3   num
     ##   <chr>     <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>
-    ## 1 Freshman    24.    0.  2.78     1.  4.35    0.  3.25    68
-    ## 2 Sophomore   34.    0.  4.47     2.  5.74    1.  5.00   118
-    ## 3 Junior      24.    0.  4.55     2.  4.87    1.  6.00    66
-    ## 4 Senior      36.    0.  5.92     3.  7.66    1.  8.00    64
+    ## 1 Freshman   24.0     0  2.78   1.00  4.35  0     3.25    68
+    ## 2 Sophomore  34.0     0  4.47   2.00  5.74  1.00  5.00   118
+    ## 3 Junior     24.0     0  4.55   2.00  4.87  1.00  6.00    66
+    ## 4 Senior     36.0     0  5.92   3.00  7.66  1.00  8.00    64
 
 ![](project_files/figure-markdown_github/by-year-1.png)
 
-As seen in the summary statistics and the graph, the number of sexual partners, both mean and median, increases as year in school progresses (Seniors, on average, have had more sexual partners that freshmen, on average). This rather linear trend is what we expected to see in this graph; as people get older, they have had more sexual partners. This trend is extremely evident for Duke students who participate in Greek life. The average number of sexual partners greatly increases for students in Greek life throughout their 4 years in college, while the increase in average number of sexual partners for students who aren't in Greek life is much smaller. While we would have to run more tests to determine how correlated Greek life and number of sexual partners are, this graph certainly provides evidence to further investigate that relationship.
+As seen in the summary statistics and the graph, the number of sexual partners, both mean and median, increases as year in school progresses (Seniors, on average, have had more sexual partners that freshmen, on average). This rather linear trend is what we expected to see in this graph; as people get older, they have had more sexual partners. This trend is extremely evident for Duke students who participate in Greek life. The average number of sexual partners greatly increases for students in Greek life throughout their 4 years in college, while the increase in average number of sexual partners for students who aren't in Greek life is much smaller. This results in a large gap in the overall mean numbers of sexual partners for students in Greek organizations and students who are not.
+
+To see whether this difference in number of sexual partners between students in Greek life and students not in Greek life is a significant one, we can again conduct a hypothesis test. Our null hypothesis is that there is no difference between the mean number of sexual partners for students in Greek organizations and students who are not. Our alternative hypothesis is that there is such a difference. To investigate this hypothesis, we can generate a null distribution, and then examine the p-value of seeing a result equally or more extreme than our observed result given that generated null distribution.
+
+    ## # A tibble: 2 x 2
+    ##   greek  mean
+    ##   <chr> <dbl>
+    ## 1 No     3.63
+    ## 2 Yes    5.95
+
+![](project_files/figure-markdown_github/greek-hypothesis-test-1.png)
+
+    ## # A tibble: 1 x 1
+    ##   p_value
+    ##     <dbl>
+    ## 1       0
+
+The p-value is 0, which gives us enough evidence to say that there is in fact a difference in the mean number of sexual partners between students who are in fraternities and sororities and students who are not.
 
 ### Linear Model
 
@@ -207,7 +224,7 @@ We also wanted to look at the relationship between greek life participation, yea
 
 Finally, we decided to create a linear model to fully answer our research question and determine which demographic factors had the strongest relationship with number of sexual partners. We created two linear models using forward and backward selection with the adjusted R-squared value. The forward selection model included religion, greek, athlete, and politics as influential variables and had an adjusted R-squared value of 0.2147764, which was higher than the backward selection model with 0.1728393. This model is rather interesting as it includes solely variables we would expect to be in the model, but it leaves out variables such as age that people would typically expect to be positively correlated with number of sexual partners.
 
-In conclusion, we found that religion, greek, athlete, and politics were the demographic factors that were most strongly associated with number of sexual partners. We dispelled some stereotypes regarding sexual activity and reinforced others. This project definitely gives way to further statistical research in the area.
+In conclusion, we found that religion, greek, athlete, politics, and year were the demographic factors that were most strongly associated with number of sexual partners. We dispelled some stereotypes regarding sexual activity and reinforced others. This project definitely gives way to further statistical research in the area.
 
 ### Critiques
 
