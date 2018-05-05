@@ -278,6 +278,7 @@ sex_survey_test %>%
   summarise(p_value = 2 * (n() / 1000))
 
 ```
+
 The p-value is 0, which gives us enough evidence to say that there is in fact a difference in the mean number of sexual partners between students who are in fraternities and sororities and students who are not. 
 
 ### Linear Model
@@ -311,6 +312,8 @@ glance(sex_survey_model_backwards)$adj.r.squared
 ```
 
 This model is an interesting one. It includes `religion` and `politics`, two variables which in American conversation are usually seen as factors in people's sexual practices (religions having tenets condoning certain practices, and different political groups having different beliefs on social issues like sexual activity). It also includes two variables in the Duke community which are seen as factors in a person's level of sexual activity, `greek` and `athlete`, with both groups being stereotyped as having higher levels of sexual activity. Interestingly enough, however, it doesn't include `year` or `age`, indicating that perhaps people aren't having sex with a significant number of people throughout their college years. The model also doesn't include the `relationship` variable or the `major_one` variable, though that is perhaps unsurprising.
+
+Interpreting this model
 
 It is important, however, to take this model with a grain of salt because the adjusted R^2 is only ```r glance(sex_survey_model)$adj.r.squared```, which is rather small to make any judgements with.
 
