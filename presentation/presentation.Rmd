@@ -8,6 +8,7 @@ output:
     fonttheme: "structurebold"
 ---
 
+
 # Overview
 
 ## Our data
@@ -25,7 +26,7 @@ output:
 
 ## Findings - Summary Statistics
 
-![Summary Statistics of Sexual Partners (total and in high school)](images/summary-stats)
+![Summary Statistics of Sexual Partners (total and in high school)](project/images/summary-stats)
 
 ----
 

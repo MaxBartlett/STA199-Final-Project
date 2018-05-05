@@ -54,7 +54,7 @@ To get answers to our survey, we posted the survey in the All Duke Facebook grou
 
 ##Research Question
 
-Our research question is "Which demographic factors are most strongly associated with number of sexual partners in college students?" To answer this question using the data we collected (described above), we first need to clean the data and remove some unnecessary variables and observations.
+Our research question is "Which demographic factors are most strongly associated with number of sexual partners in college students?" To answer this question using the data we collected (described above), we first needed to clean the data and remove some unnecessary variables and observations.
 
 ```{r clean-data}
 
@@ -102,7 +102,7 @@ The mean number of total partners is greater than the mean number of partners si
 
 ####Sexual Activity Groupings
 
-To investigate thiss, we can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Not sexually active in high school and college, Sexually active in high school and not sexually active in college, Sexually active in high school and college, Not sexually active in high school and sexually active in college.
+To investigate this, we split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: `Not sexually active in high school and in college`, `Sexually active in high school and not sexually active in college`, `Sexually active in high school and college`, and `Not sexually active in high school and sexually active in college`.
 
 ```{r sex-groups}
 sex_survey_grouped <-
@@ -119,7 +119,7 @@ sex_survey_grouped %>%
   count(partner_group)
 ```
 
-There is a surprising result here: not a single person who wasn't sexually active in high school is sexually active in college. Since we expect that many people who abstain from sex do so for religious reasons, we want to know if this an accurate hypothesis within our data.
+There is a surprising result here: not a single person who wasn't sexually active in high school is sexually active in college. Since we expect that many people who abstain from sex do so for religious reasons, we want to know if this an accurate assumption within our data.
 
 ####Religion and Abstinence
 
@@ -189,7 +189,9 @@ sex_survey %>%
             )
 ```
 
-It appears that the mean number of sexual partners for Trinity students is 4.82, higher than the mean number of sexual partners for Pratt students, at 3.55. But is this difference statistically significant? We performed an independence test to find the answer.
+It appears that the mean number of sexual partners for Trinity students is 4.82, higher than the mean number of sexual partners for Pratt students, at 3.55. But is this difference statistically significant? We performed a hypothesis test to find the answer.
+
+Our null hypothesis was that there was no difference between the means of the two groups, while our alternative hypothesis was that there was such a difference. 
 
 ```{r pratt-trinity-diff-in-means}
 sex_survey_test <- sex_survey %>%
@@ -203,7 +205,7 @@ ggplot(data = sex_survey_test, aes(x = stat)) +
   geom_histogram(binwidth = .3) +
   geom_vline(xintercept = 1.2746, color = "red") +
   geom_vline(xintercept = -1 * 1.2746, color = "red") +
-  labs(title = "Null distribution of differences in Means", subtitle = "Duke University Study, 2018", x = "Stat", y = "Count") +
+  labs(title = "Null distribution of differences in Means", x = "Stat", y = "Count") +
   theme_bw()
 
 sex_survey_test %>%
@@ -211,9 +213,9 @@ sex_survey_test %>%
   summarise(p_value = 2 * (n() / 1000))
 ```
 
-Observed Difference = ```r 4.819682 - 3.545455```
+The histogram shows our simulated null distribution, with red lines marking our observed difference and negative one times that observed difference.
 
-Since the p value is greater than our significance level of .05, we can conclude that the difference is not statistically significant.
+Since the p value is greater than our significance level of .05, we can conclude that there is not enough evidence to determine that our observed difference was not a result of chance, so we fail to reject the null hypothesis. This steretype doesn't seem to hold true, at least in our sample. 
 
 ### Greek Life & Year in School vs. Sexual Partners
 
@@ -254,11 +256,6 @@ To see whether this difference in number of sexual partners between students in 
 
 ```{r greek-hypothesis-test}
 
-sex_survey %>%
-  filter(!is.na(partners))%>%
-  group_by(greek)%>%
-  summarize(mean = mean(partners))
-
 sex_survey_test <- sex_survey %>%
   filter(!is.na(partners) & !is.na(greek))%>%
   specify(response = partners, explanatory = greek) %>%
@@ -279,7 +276,9 @@ sex_survey_test %>%
 
 ```
 
-The p-value is 0, which gives us enough evidence to say that there is in fact a difference in the mean number of sexual partners between students who are in fraternities and sororities and students who are not. 
+The red lines on the null distribution visualized in a histogram above represent the observed difference in means between the two groups and negative one times that difference, showing which data are equally or more extreme than our observed results.
+
+The p-value is 0, which gives us enough evidence to reject the null hypothesis and say that there is in fact a difference in the mean number of sexual partners between students who are in fraternities and sororities and students who are not. 
 
 ### Linear Model
 
