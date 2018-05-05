@@ -248,7 +248,37 @@ sex_survey %>%
 
 ```
 
-As seen in the summary statistics and the graph, the number of sexual partners, both mean and median, increases as year in school progresses (Seniors, on average, have had more sexual partners that freshmen, on average). This rather linear trend is what we expected to see in this graph; as people get older, they have had more sexual partners. This trend is extremely evident for Duke students who participate in Greek life. The average number of sexual partners greatly increases for students in Greek life throughout their 4 years in college, while the increase in average number of sexual partners for students who aren't in Greek life is much smaller. While we would have to run more tests to determine how correlated Greek life and number of sexual partners are, this graph certainly provides evidence to further investigate that relationship.
+As seen in the summary statistics and the graph, the number of sexual partners, both mean and median, increases as year in school progresses (Seniors, on average, have had more sexual partners that freshmen, on average). This rather linear trend is what we expected to see in this graph; as people get older, they have had more sexual partners. This trend is extremely evident for Duke students who participate in Greek life. The average number of sexual partners greatly increases for students in Greek life throughout their 4 years in college, while the increase in average number of sexual partners for students who aren't in Greek life is much smaller. This results in a large gap in the overall mean numbers of sexual partners for students in Greek organizations and students who are not.
+
+To see whether this difference in number of sexual partners between students in Greek life and students not in Greek life is a significant one, we can again conduct a hypothesis test. Our null hypothesis is that there is no difference between the mean number of sexual partners for students in Greek organizations and students who are not. Our alternative hypothesis is that there is such a difference. To investigate this hypothesis, we can generate a null distribution, and then examine the p-value of seeing a result equally or more extreme than our observed result given that generated null distribution. 
+
+```{r greek-hypothesis-test}
+
+sex_survey %>%
+  filter(!is.na(partners))%>%
+  group_by(greek)%>%
+  summarize(mean = mean(partners))
+
+sex_survey_test <- sex_survey %>%
+  filter(!is.na(partners) & !is.na(greek))%>%
+  specify(response = partners, explanatory = greek) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("Yes", "No"))
+
+ggplot(data = sex_survey_test, aes(x = stat)) +
+  geom_histogram(binwidth = .3) +
+  geom_vline(xintercept = 2.3182, color = "red") +
+  geom_vline(xintercept = -1 * 2.3182, color = "red") +
+  labs(title = "Null distribution of differences in Means", x = "Stat", y = "Count") +
+  theme_bw()
+
+sex_survey_test %>%
+  filter(stat >= 2.3182) %>%
+  summarise(p_value = 2 * (n() / 1000))
+
+```
+The p-value is 0, which gives us enough evidence to say that there is in fact a difference in the mean number of sexual partners between students who are in fraternities and sororities and students who are not. 
 
 ### Linear Model
 
