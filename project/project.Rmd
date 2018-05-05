@@ -91,16 +91,16 @@ sex_survey %>%
 The mean number of total partners is greater than the mean number of partners since coming to college, yet the median number of partners stays the same, at two. This is an interesting observation, as we expected the median to increase as well. This may indicate that those who are already having sex continue to have new partners in college, and those who didn't have sex in high school are continuing to abstain from sex.
 
 ####Sexual Activity Groupings
-We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent since high school, Abstinent since college, Sexually active since high school, and Sexually active since college.
+We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Not sexually active in high school and college, Sexually active in high school and not sexually active in college, Sexually active in high school and college, Not sexually active in high school and sexually active in college.
 
 ```{r sex-groups}
 sex_survey_grouped <-
   sex_survey %>%
   mutate(partner_group = case_when(
-    partners == 0 & partners_college == 0 ~ "Abstinent since high school",
-    partners > 0 & partners_college == 0 ~ "Abstinent since college",
-    partners > 0 & partners_college > 0 ~ "Sexually active since high school",
-    partners == 0 & partners_college > 0 ~ "Sexually active since college"
+    partners == 0 & partners_college == 0 ~ "Not sexually active in high school and college",
+    partners > 0 & partners_college == 0 ~ "Sexually active in high school and not sexually active in college",
+    partners > 0 & partners_college > 0 ~ "Sexually active in high school and college",
+    partners == 0 & partners_college > 0 ~ "Not sexually active in high school and sexually active in college"
   ))
 
 sex_survey_grouped %>%
@@ -114,7 +114,7 @@ There is a surprising result here: not a single person who wasn't sexually activ
 
 ```{r religious-abstinance}
 sex_survey_grouped %>%
-  filter(partner_group == "Abstinent since high school" & !is.na(religious)) %>%
+  filter(partner_group == "Not sexually active in high school and college" & !is.na(religious)) %>%
   count(religious)
 ```
 
