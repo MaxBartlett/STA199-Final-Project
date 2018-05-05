@@ -1,7 +1,7 @@
 Let's Talk About Sex
 ================
 Max Bartlett, Jennifer Chin, and Liam Pulsifer
-04 May, 2018
+05 May, 2018
 
 Introduction
 ------------
@@ -52,7 +52,7 @@ The mean number of total partners is greater than the mean number of partners si
 
 #### Sexual Activity Groupings
 
-We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent, Sexually active since college, Abstinent in college, and Sexually active.
+We can split students into four groups based on whether or not they were sexually active in high school and whether or not they were sexually active in college: Abstinent since high school, Abstinent since college, Sexually active since high school, and Sexually active since college.
 
     ## # A tibble: 3 x 2
     ##   partner_group                         n
@@ -111,7 +111,7 @@ It appears that the mean number of sexual partners for Trinity students is 4.82,
     ## # A tibble: 1 x 1
     ##   p_value
     ##     <dbl>
-    ## 1   0.140
+    ## 1   0.132
 
 Observed Difference = `1.274227`
 
@@ -132,8 +132,10 @@ Conclusion
 
 ### Summary
 
-### What we could improve
+### Critiques
 
 Because our survey was voluntary and taken primarily by Duke students and people we know, we are aware that our data may be skewed and not necessarily completely representative. In other words, our data is definitely subject to voluntary response bias. Additionally, we only shared the survey on Facebook, so our sample is only representative of Duke Students on Facebook.
 
-As far as the content of our survey, we could have been more specific and thorough in our questioning. One of the most glaring omissions was of the lack of definition of "sexual partner." This definition varies between people, and may have influenced people's individual responses. Additionally, there may be other confounding variables that we didn't ask for in the survey. For example, data on sexual orientation would've been useful for our analysis. We also could've included additional numerical variables, for instance, a rating of how sexually active people thought they were compared to the rest of the Duke community (1 being less sexually active than nearly all Duke students, 10 being more sexually active than nearly all Duke students, and 5 being in the middle) in order to gauge Duke students' views on sex and dating at Duke. Adding more numerical variables would allow us to use a wider variety of statistical techniques.
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream As far as the content of our survey, we could have been more specific and thorough in our questioning. One of the most glaring omissions was of the lack of a definition for "sexual partner." This definition varies between people, and may have influenced people's individual responses. Additionally, there may be other confounding variables that we didn't ask for in the survey. For example, data on sexual orientation would've been useful for our analysis. We also could've included additional numerical variables, for instance, a rating of how sexually active people thought they were compared to the rest of the Duke community (1 being less sexually active than nearly all Duke students, 10 being more sexually active than nearly all Duke students, and 5 being in the middle) in order to gauge Duke students' views on sex and dating at Duke. Adding more numerical variables would have allowed us to use a wider variety of statistical techniques. ======= As far as the content of our survey, we could have been more specific and thorough in our questioning. One of the most glaring omissions was of the lack of definition of "sexual partner." This definition varies between people, and may have influenced people's individual responses. Additionally, there may be other confounding variables that we didn't ask for in the survey. For example, data on sexual orientation would've been useful for our analysis. We also could've included additional numerical variables, for instance, a rating of how sexually active people thought they were compared to the rest of the Duke community (1 being less sexually active than nearly all Duke students, 10 being more sexually active than nearly all Duke students, and 5 being in the middle) in order to gauge Duke students' views on sex and dating at Duke. Adding more numerical variables would allow us to use a wider variety of statistical techniques.
+
+One minor error with our survey was that we allowed people to list multiple &gt;&gt;&gt;&gt;&gt;&gt;&gt; Stashed changes
